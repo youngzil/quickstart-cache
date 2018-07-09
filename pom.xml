@@ -24,11 +24,11 @@
 	</dependencies>
 
 	<modules>
-		<module>quickstart-cache-memcached</module>
-		<module>quickstart-cache-redis</module>
-		<module>quickstart-cache-hazelcast</module>
-		<module>quickstart-cache-ehcache</module>
-		<module>quickstart-cache-tair</module>
+		<module>quickstart-memcached</module>
+		<module>quickstart-redis</module>
+		<module>quickstart-hazelcast</module>
+		<module>quickstart-ehcache</module>
+		<module>quickstart-tair</module>
 	</modules>
 
 </project>
