@@ -42,7 +42,6 @@ http://www.redis.cn/topics/cluster-tutorial.html
 redis java 客户端：
 https://github.com/xetorthio/jedis
 https://github.com/redisson/redisson
-https://github.com/redisson/redisson
 https://github.com/caoxinyu/RedisClient
 https://github.com/alphazero/jredis
 
