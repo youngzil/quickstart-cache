@@ -15,7 +15,7 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * RedisUtil
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 上午10:28:55
  * @version 1.0
  */

@@ -13,7 +13,7 @@ import org.redisson.Config;
 /**
  * RedisUtils 
  *  
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月15日 上午10:30:59 
  * @version 1.0
  */

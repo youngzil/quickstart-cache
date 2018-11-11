@@ -16,7 +16,7 @@ import com.alisoft.xplatform.asf.cache.memcached.MemcachedCacheManager;
 /**
  * AlisoftTest
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月18日 下午8:45:35
  * @version 1.0
  */

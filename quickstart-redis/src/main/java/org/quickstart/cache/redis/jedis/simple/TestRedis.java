@@ -21,7 +21,7 @@ import redis.clients.jedis.Jedis;
 /**
  * RedisJava
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 上午9:59:05
  * @version 1.0
  */

@@ -17,7 +17,7 @@ import redis.clients.jedis.JedisShardInfo;
 /**
  * TestRedis2
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 上午10:39:56
  * @version 1.0
  */

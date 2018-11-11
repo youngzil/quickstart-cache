@@ -19,7 +19,7 @@ import com.whalin.MemCached.SockIOPool;
 /**
  * TestTraversalMemcached
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年11月18日 下午2:24:45
  * @since 1.0
  */

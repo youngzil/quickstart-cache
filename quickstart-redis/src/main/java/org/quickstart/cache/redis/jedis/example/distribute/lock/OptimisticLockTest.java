@@ -19,7 +19,7 @@ import redis.clients.jedis.Transaction;
 /**
  * OptimisticLockTest redis乐观锁实例 分布式锁
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2018年10月31日 下午4:44:29
  * @since 1.0
  */

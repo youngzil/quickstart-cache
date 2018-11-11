@@ -17,7 +17,7 @@ import org.redisson.core.RAtomicLong;
 /**
  * RedisClusterTest
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月15日 上午11:18:59
  * @version 1.0
  */

@@ -25,7 +25,7 @@ import org.redisson.core.RTopic;
 /**
  * RedisUtils Redis client的辅助工具类 用于连接Redis服务器 创建不同的Redis Server对应的客户端对象 http://blog.csdn.net/undergrowth/article/details/46301559
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年11月20日 下午2:58:35
  * @since 1.0
  */

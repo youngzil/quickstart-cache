@@ -20,7 +20,7 @@ import redis.clients.jedis.JedisShardInfo;
 /**
  * TestRedisSet
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 上午11:02:17
  * @version 1.0
  */

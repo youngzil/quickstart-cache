@@ -23,7 +23,7 @@ import net.rubyeye.xmemcached.utils.AddrUtil;
 /**
  * TestXMemcache
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月18日 下午9:02:44
  * @version 1.0
  */

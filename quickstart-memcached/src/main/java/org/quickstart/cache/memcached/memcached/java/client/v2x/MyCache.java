@@ -16,7 +16,7 @@ import com.danga.MemCached.SockIOPool;
 /**
  * MyCache
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月18日 下午6:56:19
  * @version 1.0
  */

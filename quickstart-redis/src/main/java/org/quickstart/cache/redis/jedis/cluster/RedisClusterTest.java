@@ -20,7 +20,7 @@ import redis.clients.jedis.JedisCluster;
 /**
  * RedisClusterTest
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 下午5:28:21
  * @version 1.0
  */

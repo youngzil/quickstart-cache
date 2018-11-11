@@ -20,7 +20,7 @@ import com.hazelcast.core.HazelcastInstance;
  * 
  * https://blog.csdn.net/wangyangzhizhou/article/details/52529067
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2018年4月20日 下午2:42:06
  * @since 1.0
  */

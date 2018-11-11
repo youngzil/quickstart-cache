@@ -18,7 +18,7 @@ import com.hazelcast.core.IMap;
 /**
  * GettingStartedClient
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2018年4月20日 下午2:46:40
  * @since 1.0
  */

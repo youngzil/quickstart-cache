@@ -18,7 +18,7 @@ import net.spy.memcached.MemcachedClient;
 /**
  * TestSpyMemcached
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月18日 下午9:11:49
  * @version 1.0
  */

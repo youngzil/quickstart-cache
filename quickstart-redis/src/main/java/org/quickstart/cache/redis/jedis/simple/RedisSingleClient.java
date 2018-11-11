@@ -24,7 +24,7 @@ import redis.clients.util.Pool;
 /**
  * RedisSingleClient
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年3月14日 下午4:54:38
  * @version 1.0
  */

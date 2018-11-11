@@ -35,7 +35,7 @@ import io.netty.util.concurrent.Future;
 /**
  * RedisUtilsTest http://blog.csdn.net/undergrowth/article/details/46301559
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2017年11月20日 下午3:00:07
  * @since 1.0
  */
