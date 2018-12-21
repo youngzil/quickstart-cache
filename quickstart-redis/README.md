@@ -1,8 +1,9 @@
 相关参考资料
-官网： http://redis.io     
+官网： https://redis.io     
 中文网：http://www.redis.cn/    
 文档：http://redisdoc.com/
 https://www.oschina.net/p/redis
+
 
 https://redis.io/topics/quickstart
 
@@ -18,6 +19,8 @@ Redis下载：https://redis.io/download
 
 
 Redis桌面管理器，可从 http://redisdesktop.com/download 下载该软件包，安装即可
+https://redisdesktop.com/
+https://github.com/uglide/RedisDesktopManager/
 
 github：https://github.com/antirez/redis
 github文档：https://github.com/antirez/redis-doc
@@ -37,6 +40,7 @@ http://www.yiibai.com/redis/
 
 Redis集群教程：
 http://www.redis.cn/topics/cluster-tutorial.html
+客户端如何选择见：http://redis.io/clients
 
 
 redis java 客户端：

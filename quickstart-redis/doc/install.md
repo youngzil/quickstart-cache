@@ -1,3 +1,5 @@
+Redis默认端口6379
+
 Linux 下安装
 下载地址：http://redis.io/download，下载最新文档版本。
 
