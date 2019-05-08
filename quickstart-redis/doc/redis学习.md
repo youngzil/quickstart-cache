@@ -1,8 +1,157 @@
-分布式缓存Redis使用心得：https://www.cnblogs.com/yangxiaolan/p/5786123.html
+批量字节操作Bitmap
+Redis部署模式：单节点，单节点主从、主从带Sentinel哨兵模式、集群模式
+Redis集群模式搭建、扩缩容：手动 和 ruby脚本
+主从带Sentinel哨兵模式:Sentinel的工作方式
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
+Redis命令：Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
+
+Redis中支持RDB和AOF这两种持久化机制
+redis提供6种数据淘汰策略
+Redis服务端处理流程：计算槽、槽节点查找、处理/ASK/MOVED
+
+Redis和Memcached区别：支持数据类型、持久化、数据备份恢复、路由规则、网络IO模型
+
+
+Redis如何解决key冲突：使用redis的不同db（集群模式部署不行），key带上业务含义
+如何解决Redis的并发竞争key问题：Redis事务、分布式锁
 
 
 
-redis 提供 6种数据淘汰策略：
+---------------------------------------------------------------------------------------------------------------------
+参考
+https://blog.csdn.net/men_wen/article/category/6769467
+https://github.com/menwengit/redis_source_annotation
+
+分布式缓存Redis使用心得：
+https://www.cnblogs.com/yangxiaolan/p/5786123.html
+
+
+
+
+
+集群中单独运行的节点称为孤儿节点
+
+
+从redis.conf文件可以看到redis默认有16个数据库，可以通过配置databases来修改这一数字，redis启动连接后会自动选择0号数据库，不过可以SELECT命令更换数据库，每个数据都是独立的，类似数据库
+
+
+数据类型命令：字符串，list、hashmap、set无序集合、有序集合（sorted set）、KEY 相关命令、事务 和 连接相关命令
+
+Redis中支持RDB和AOF这两种持久化机制，目的都是避免因进程退出，造成的数据丢失问题。
+RDB持久化：把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
+AOF持久化：以独立日志的方式记录每次写命令，重启时在重新执行AOF文件中的命令达到恢复数据的目的。
+
+
+RDB持久化是把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
+RDB触发机制分为手动触发和自动触发。
+
+手动触发的两条命令：
+SAVE：阻塞当前Redis服务器，知道RDB过程完成为止。
+BGSAVE：Redis 进程执行fork()操作创建出一个子进程，在后台完成RDB持久化的过程。（主流）
+
+自动触发的配置：
+save 900 1 //服务器在900秒之内，对数据库执行了至少1次修改 
+save 300 10 //服务器在300秒之内，对数据库执行了至少10修改 
+save 60 1000 //服务器在60秒之内，对数据库执行了至少1000修改 
+// 满足以上三个条件中的任意一个，则自动触发 BGSAVE 操作 
+// 或者使用命令CONFIG SET 命令配置 
+
+
+AOF的使用：在redis.conf配置文件中，将appendonly设置为yes，默认的为no。
+
+命令写入缓冲区，命令问什么先写入缓冲区
+由于Redis是单线程响应命令，所以每次写AOF文件都直接追加到硬盘中，那么写入的性能完全取决于硬盘的负载，所以Redis会将命令写入到缓冲区中，然后执行文件同步操作，再将缓冲区内容同步到磁盘中，这样就很好的保持了高性能。
+
+缓冲区同步到文件
+既然缓冲区提供了高性能的保障，那么缓冲区中的数据安全问题如何解决呢？只要数据存在于缓冲区，那么就有丢失的危险。那么，如果控制同步的频率呢？Redis中给出了3中缓冲区同步文件的策略。
+虽然Redis提供了三种同步策略，兼顾安全和性能的同步策略是：AOF_FSYNC_EVERYSEC。但是仍有丢失数据的风险，而且不是一秒而是两秒的数据
+
+可配置值	说明
+AOF_FSYNC_ALWAYS	命令写入aof_buf后调用系统fsync和操作同步到AOF文件，fsync完成后进程程返回
+AOF_FSYNC_EVERYSEC	命令写入aof_buf后调用系统write操作，write完成后线程返回。fsync同步文件操作由进程每秒调用一次
+AOF_FSYNC_NO	命令写入aof_buf后调用系统write操作，不对AOF文件做fsync同步，同步硬盘由操作由操作系统负责
+
+我们来了解一下，write和fsync操作，在系统中都做了哪些事：
+1、write操作：会触发延迟写（delayed write）机制。Linux在内核提供页缓冲区用来提高IO性能，因此，write操作在将数据写入操作系统的缓冲区后就直接返回，而不一定触发同步到磁盘的操作。只有在页空间写满，或者达到特定的时间周期，才会同步到磁盘。因此单纯的write操作也是有数据丢失的风险。
+2、fsync操作：针对单个文件操作，做强制硬盘同步，fsync将阻塞直到写入硬盘完成后返回。
+
+
+重写机制：当一个数据库的命令非常多时，AOF文件就会非常大，为了解决这个问题，Redis引入了AOF重写机制来压缩文件的体积。
+
+
+触发机制
+手动触发：BGREWRITEAOF 命令。
+自动触发：根据redis.conf的两个参数确定触发的时机。 
+auto-aof-rewrite-percentage 100：当前AOF的文件空间(aof_current_size)和上一次重写后AOF文件空间(aof_base_size)的比值。
+auto-aof-rewrite-min-size 64mb：表示运行AOF重写时文件最小的体积。
+自动触发时机 = (aof_current_size > auto-aof-rewrite-min-size && (aof_current_size - aof_base_size) / aof_base_size >= auto-aof-rewrite-percentage)
+
+
+
+Redis 复制(Replication)
+1. 复制介绍
+分布式数据库为了获取更大的存储容量和更高的并发访问量，会将原来集中式数据库中的数据分散存储到多个通过网络连接的数据存储节点上。Redis为了解决单点数据库问题，会把数据复制多个副本部署到其他节点上，通过复制，实现Redis的高可用性，实现对数据的冗余备份，保证数据和服务的高度可靠性。
+
+2. 复制的建立
+建立复制的配置方式有三种。
+1、在redis.conf文件中配置slaveof <masterip> <masterport>选项，然后指定该配置文件启动Redis生效。
+2、在redis-server启动命令后加上--slaveof <masterip> <masterport>启动生效。
+3、直接使用 slaveof <masterip> <masterport>命令在从节点执行生效。
+
+
+Redis的复制拓扑结构支持单层或多层复制关系，从节点还可以作为其他从节点的主节点进行复制。
+根据拓扑关系可以分为三种：
+一主一从
+一主多从（主节点有多个从节点）
+树型主从结构（从节点还有子从节点）
+
+
+
+
+主从复制的问题
+Redis主从复制可将主节点数据同步给从节点，从节点此时有两个作用：
+
+一旦主节点宕机，从节点作为主节点的备份可以随时顶上来。
+扩展主节点的读能力，分担主节点读压力。
+但是问题来了：
+1、一旦主节点宕机，从节点晋升成主节点，同时需要修改应用方的主节点地址，还需要命令所有从节点去复制新的主节点，整个过程需要人工干预。
+2、主节点的写能力受到单机的限制。
+3、主节点的存储能力受到单机的限制。
+第一个问题，我们接下来讲的Sentinel就可以解决。而后两个问题，Redis也给出了方案Redis Cluster。
+
+
+Redis Sentinel的高可用
+Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis数据节点，每个Sentinel节点会对数据节点和其余Sentinel节点进行监控，当发现节点不可达时，会对节点做下线标识。
+
+如果被标识的是主节点，他还会选择和其他Sentinel节点进行“协商”，当大多数的Sentinel节点都认为主节点不可达时，他们会选举出一个Sentinel节点来完成自动故障转移工作，同时将这个变化通知给Redis应用方。
+
+整个过程完全自动，不需要人工介入，所以可以很好解决Redis的高可用问题。
+
+
+从上面的逻辑架构和故障转移试验中，可以看出Redis Sentinel的以下几个功能。
+1、监控：Sentinel节点会定期检测Redis数据节点和其余Sentinel节点是否可达。
+2、通知：Sentinel节点会将故障转移通知给应用方。
+3、主节点故障转移：实现从节点晋升为主节点并维护后续正确的主从关系。
+4、配置提供者：在Redis Sentinel结构中，客户端在初始化的时候连接的是Sentinel节点集合，从中获取主节点信息。
+--------------------- 
+作者：men_wen 
+来源：CSDN 
+原文：https://blog.csdn.net/men_wen/article/details/72724406 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+
+
+
+
+
+
+
+
+
+
+
+
+
+redis提供6种数据淘汰策略：
 
 volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
 volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
@@ -20,6 +169,8 @@ no-enviction（驱逐）：禁止驱逐数据
  ttl和random比较容易理解，实现也会比较简单。主要是Lru最近最少使用淘汰策略，设计上会对key 按失效时间排序，然后取最先失效的key进行淘汰
  
  
+ 
+ Redis服务端处理流程：
  
 请求重定向
 在集群模式下，Redis接收任何键相关命令时首先计算键对应的槽，再根据槽找出所对应的节点，如果节点是自身，则处理键命令；否则回复MOVED重定向错误，通知客户端请求正确的节点。这个过程称为MOVED重定向
@@ -62,33 +213,162 @@ no-enviction（驱逐）：禁止驱逐数据
  
  
  
+
+ http://blog.huangz.me/diary/2016/redis-count-online-users.html
+ 使用 Redis 统计在线用户人数：
+方案 1 ：使用有序集合
+方案 2 ：使用集合
+方案 3 ：使用 HyperLogLog
+方案 4 ：使用位图（bitmap）
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+Redis3.X开始提供集群功能，和哨兵监控功能？？？
+
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
+
+Redis 集群的数据分片
+Redis 集群没有使用一致性hash, 而是引入了 哈希槽的概念.
+Redis 集群有16384个哈希槽,每个key通过CRC16校验后对16384取模来决定放置哪个槽.集群的每个节点负责一部分hash槽,举个例子,比如当前集群有3个节点,那么:
+节点 A 包含 0 到 5500号哈希槽.
+节点 B 包含5501 到 11000 号哈希槽.
+节点 C 包含11001 到 16384号哈希槽.
+这种结构很容易添加或者删除节点. 比如如果我想新添加个节点D, 我需要从节点 A, B, C中得部分槽到D上. 如果我像移除节点A,需要将A中得槽移到B和C节点上,然后将没有任何槽的A节点从集群中移除即可. 由于从一个节点将哈希槽移动到另一个节点并不会停止服务,所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成集群不可用的状态.
+
+Redis 集群的主从复制模型:
+当某个节点不可用，会造成整个集群不可用（某个节点的master和slave都不可用）
+
+Redis 一致性保证
+Redis 并不能保证数据的强一致性. 这意味这在实际中集群在特定的条件下可能会丢失写操作.
+
+下面是一个最少选项的集群的配置文件:
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes
+文件中的 cluster-enabled 选项用于开实例的集群模式， 而 cluster-conf-file 选项则设定了保存节点配置文件的路径， 默认值为 nodes.conf.节点配置文件无须人为修改， 它由 Redis 集群在启动时创建， 并在有需要时自动进行更新。
+要让集群正常运作至少需要三个主节点，不过在刚开始试用集群功能时， 强烈建议使用六个节点： 其中三个为主节点， 而其余三个则是各个主节点的从节点。
+
+
+主从带Sentinel哨兵模式
+
+集群监控哨兵：
+参考文章：https://www.cnblogs.com/jaycekon/p/6237562.html
+
+启动Sentinel
+/sentinel$ redis-sentinel sentinel.conf
+
+Sentinel的工作方式:
+1)：每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令 
+2)：如果一个实例（instance）距离最后一次有效回复 PING 命令的时间超过 down-after-milliseconds 选项所指定的值， 则这个实例会被 Sentinel 标记为主观下线。 
+3)：如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master的确进入了主观下线状态。 
+4)：当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线 
+5)：在一般情况下， 每个 Sentinel 会以每 10 秒一次的频率向它已知的所有Master，Slave发送 INFO 命令 
+6)：当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次 
+7)：若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。 
+若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
+
+
+
+
+
+Redis 优势
+性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。
+丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。
+原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。
+丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。
+
+Redis 是一个高性能的key-value数据库。 redis的出现，很大程度补偿了memcached这类keyvalue存储的不足，在部 分场合可以对关系数据库起到很好的补充作用。它提供了Python，Ruby，Erlang，PHP客户端，使用很方便。
+
+性能测试结果：
+SET操作每秒钟 110000 次，GET操作每秒钟 81000 次，服务器配置如下：
+Linux 2.6, Xeon X3320 2.5Ghz.
+stackoverflow 网站使用 Redis 做为缓存服务器。
+
+Installation
+Download, extract and compile Redis with:
+$ wget http://download.redis.io/releases/redis-4.0.2.tar.gz
+$ tar xzf redis-4.0.2.tar.gz
+$ cd redis-4.0.2
+$ make
+The binaries that are now compiled are available in the src directory. Run Redis with:
+$ src/redis-server
+You can interact with Redis using the built-in client:
+$ src/redis-cli
+redis> set foo bar
+OK
+redis> get foo
+"bar"
+
+
+---------------------------------------------------------------------------------------------------------------------
+https://www.jianshu.com/p/3bc684502f20
+http://www.importnew.com/26921.html
+https://blog.csdn.net/u011489043/article/details/78922390
+https://www.biaodianfu.com/redis-vs-memcached.html
+
+Redis和Memcached区别：
+1、支持数据类型、
+2、持久化
+3、数据备份恢复
+4、路由规则、
+5、网络IO模型：memcached是多线程，非阻塞IO复用的网络模型，redis使用单线程的IO复用模型
+
+1、Redis支持服务器端的数据操作：Redis相比Memcached来说，拥有更多的数据结构和并支持更丰富的数据操作
+2、内存使用效率对比：使用简单的key-value存储的话，Memcached的内存利用率更高，而如果Redis采用hash结构来做key-value存储，由于其组合式的压缩，其内存利用率会高于Memcached
+3、性能对比：由于Redis只使用单核，而Memcached可以使用多核，所以平均每一个核上Redis在存储小数据时比Memcached性能更高。
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+Redis：解决分布式高并发修改同一个Key的问题
+如何解决Redis的并发竞争key问题
+ 
+ https://www.cnblogs.com/yy3b2007com/p/9383713.html
+ https://blog.csdn.net/jason1993as/article/details/86850772
+ 
+ 1、Redis事务：MULTI + 命令 + EXEC
+ 2、分布式锁：
+ 
+ 
+  1、Redis事务：MULTI + 命令 + EXEC
+  采用使用mutil+watch实现
+this.jedis.watch("lock_test");
+Transaction tx = this.jedis.multi();
+tx.hmset("lock_test", newValues);
+List<Object> exec = tx.exec();
+ 
+ 
+ 2、分布式锁的实现方式：
+ 数据库
+    Memcached（add命令）
+    Redis（setnx命令）
+    Zookeeper（临时节点）
+ 
+ 
+ 通过Jedis的setnx、multi事务及watch实现三种分布式跨JVM锁的方法代码示例
+ http://www.xwood.net/_site_domain_/_root/5870/5874/t_c267546.html
+ 
+---------------------------------------------------------------------------------------------------------------------
+ redis如何解决key冲突
+1、业务隔离
+
+不同的业务使用不同的redis集群，或者协议使用redis的不同db。
+
+2、良好的Redis Key的设计
+
+格式：业务标识：系统名称：模块名称：关键词简写
+
+比如：保险：用户管理：用户申请：手机号
+
+Redis Key：bx:um:reg:mobile
  
  
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ ---------------------------------------------------------------------------------------------------------------------
