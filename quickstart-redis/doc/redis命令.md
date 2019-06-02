@@ -1,3 +1,15 @@
+redis-cli 
+redis-cli -h host -p port -a password
+./redis-cli -h 192.168.204.131 -p 6379 -c
+redis-cli -c -h 10.76.224.229 -p 6202 -a 密码
+
+
+redis-cli --raw  防止中文乱码
+
+PING
+
+
+
 Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
 
 http://doc.redisfans.com/

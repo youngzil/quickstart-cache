@@ -1,6 +1,12 @@
 Redis是一个超精简的基于内存的键值对数据库（key-value），一般对并发有一定要求的应用都用其储存session，乃至整个数据库。 参见： node.js与redis结合使用。 不过它公自带一个最小化的命令行式的数据库管理工具，有时侯使用起来并不方便。不过Github上面已经有了很多图形化的管理工具，而且都针对REDIS做了一些优化，如自动折叠带schema的key等。
 
 
+
+RedisView：一个个人开发的界面，还是比较方便的
+https://github.com/cc20110101/RedisView/releases
+
+
+
 Redis Desktop Manager
 一款基于Qt5的跨平台Redis桌面管理软件
 支持: Windows 7+, Mac OS X 10.10+, Ubuntu 14+
