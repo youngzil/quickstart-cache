@@ -3,7 +3,7 @@
  * 文件名：RedisSingleClient.java
  * 版本信息：
  * 日期：2017年3月14日
- * Copyright asiainfo Corporation 2017
+ * Copyright yangzl Corporation 2017
  * 版权所有 *
  */
 package org.quickstart.cache.redis.jedis.simple;

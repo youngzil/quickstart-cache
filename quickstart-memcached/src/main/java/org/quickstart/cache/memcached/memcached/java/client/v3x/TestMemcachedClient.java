@@ -3,7 +3,7 @@
  * 文件名：MyCache.java
  * 版本信息：
  * 日期：2017年3月18日
- * Copyright asiainfo Corporation 2017
+ * Copyright yangzl Corporation 2017
  * 版权所有 *
  */
 package org.quickstart.cache.memcached.memcached.java.client.v3x;
