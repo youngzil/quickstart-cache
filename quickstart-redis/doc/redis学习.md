@@ -336,7 +336,7 @@ Redis：解决分布式高并发修改同一个Key的问题
  2、分布式锁：
  
  
-  1、Redis事务：MULTI + 命令 + EXEC
+1、Redis事务：MULTI + 命令 + EXEC
   采用使用mutil+watch实现
 this.jedis.watch("lock_test");
 Transaction tx = this.jedis.multi();
