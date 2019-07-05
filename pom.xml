@@ -29,6 +29,8 @@
 		<module>quickstart-hazelcast</module>
 		<module>quickstart-ehcache</module>
 		<module>quickstart-tair</module>
+		<module>quickstart-caffeine</module>
+		<module>quickstart-concurrentlinkedhashmap</module>
 	</modules>
 
 </project>
