@@ -48,6 +48,8 @@ https://github.com/xetorthio/jedis
 https://github.com/redisson/redisson
 https://github.com/caoxinyu/RedisClient
 https://github.com/alphazero/jredis
+https://github.com/lettuce-io/lettuce-core
+
 
 
 参考
