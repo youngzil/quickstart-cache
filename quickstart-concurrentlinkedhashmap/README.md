@@ -1,12 +1,29 @@
 https://github.com/ben-manes/concurrentlinkedhashmap
 
 
+
+由于项目中一直使用的Google的ConcurrentLinkedHashMap作为JVM缓存的容器，该项目已经很久没有更新，从作者的官方文档中看到ConcurrentLinkedHashMap已经被合并到了Guava包中，推荐使用Guava的MapMaker和CacheBuilder，本文稍微简述一下两者的用法。
+
+正如作者推荐的，在大部分情况下我们应该使用Guava中的CacheBuilder来替代ConcurrentLinkedHashMap，因为基于同样的算法，同样效率，CacheBuilder具有更简洁易用API，并且Guava的维护团队更加活跃，一个简洁、活跃的开源项目总数比一个已经不经常更新的项目要好。
+
+
+
+
 ConcurrentLinkedHashMap是java.util.LinkedHashMap的一个高性能实现。主要用于软件缓存。
 
 ConcurrentLinkedHashMap 是google团队提供的一个容器。它有什么用呢？其实它本身是对
 ConcurrentHashMap的封装，可以用来实现一个基于LRU策略的缓存。
 详细介绍可以参见  
 http://code.google.com/p/concurrentlinkedhashmap
+
+
+
+ConcurrentLinkedHashMap提供一个基于权重管理容量的Map，有以下特性
+
+基于LRU(Lateast recently use)算法来替换Map中的元素
+再高负载情况下，和ConrrentHashMap具有相同的性能
+Can bound by the size of the values (e.g. Multimap cache) （这条没看懂）
+提供元素移除的通知事件
 
 
 
@@ -25,4 +42,5 @@ LRU（Least recently used，最近最少使用）算法根据数据的历史访�
 
 
 参考
+http://fortl.net/2016/Google%E7%9A%84ConcurrentLinkedHashMap%E5%92%8CGuava%E7%9A%84Cache/
 http://jm.taobao.org/2016/02/01/3744/

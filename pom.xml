@@ -31,6 +31,7 @@
 		<module>quickstart-tair</module>
 		<module>quickstart-caffeine</module>
 		<module>quickstart-concurrentlinkedhashmap</module>
+		<module>quickstart-guava-cache</module>
 	</modules>
 
 </project>

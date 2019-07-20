@@ -9,11 +9,13 @@ import io.lettuce.core.api.sync.RedisCommands;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
+import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
 import io.lettuce.core.codec.StringCodec;
 import io.lettuce.core.support.AsyncConnectionPoolSupport;
 import io.lettuce.core.support.AsyncPool;
 import io.lettuce.core.support.BoundedPoolConfig;
 import io.lettuce.core.support.ConnectionPoolSupport;
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -50,6 +52,46 @@ public class ConnectPoolTest {
     // terminating
     pool.close();
     client.shutdown();
+  }
+
+  @Test
+  public void testClusterUsageZero() throws Exception {
+
+    ArrayList<RedisURI> list = new ArrayList<>();
+    list.add(RedisURI.create("redis://10.1.243.23:7000"));
+    list.add(RedisURI.create("redis://10.1.243.23:7001"));
+    list.add(RedisURI.create("redis://10.1.243.23:7002"));
+    list.add(RedisURI.create("redis://10.1.243.23:7003"));
+    list.add(RedisURI.create("redis://10.1.243.23:7004"));
+    list.add(RedisURI.create("redis://10.1.243.23:7005"));
+    RedisClusterClient client = RedisClusterClient.create(list);
+    // RedisClusterClient client = RedisClusterClient.create("redis://192.168.37.128:7000");
+    StatefulRedisClusterConnection<String, String> connect = client.connect();
+
+    /* 同步执行的命令 */
+    RedisAdvancedClusterCommands<String, String> commands = connect.sync();
+
+    commands.set("test","hello");
+
+    String str = commands.get("test");
+    System.out.println(str);
+
+    /* 异步执行的命令 */
+    // RedisAdvancedClusterAsyncCommands<String, String> commands= connect.async();
+    // RedisFuture<String> future = commands.get("test2");
+    // try {
+    // String str = future.get();
+    // System.out.println(str);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // } catch (ExecutionException e) {
+    // e.printStackTrace();
+    // }
+
+    connect.close();
+    client.shutdown();
+
+
   }
 
   @Test

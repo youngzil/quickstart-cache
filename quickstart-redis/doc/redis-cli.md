@@ -6,6 +6,11 @@ Redis支持五种数据类型：string（字符串），hash（哈希），list�
 远程redis-cli -h host -p port -a password
 ./redis-cli -h 192.168.204.131 -p 6379 -c
 redis-cli -c -h 10.76.224.229 -p 6202 -a 密码
+redis-cli -c -h 10.1.243.23 -p 7000
+
+
+查看集群节点信息
+cluster nodes  
 
 
 
