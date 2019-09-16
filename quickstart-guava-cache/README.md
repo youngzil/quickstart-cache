@@ -3,6 +3,9 @@ https://github.com/google/guava/wiki/CachesExplained
 http://fortl.net/2016/Google%E7%9A%84ConcurrentLinkedHashMap%E5%92%8CGuava%E7%9A%84Cache/
 
 
+Guava LocalCache 缓存介绍及实现源码深入剖析
+https://ketao1989.github.io/2014/12/19/Guava-Cache-Guide-And-Implement-Analyse/
+
 
 guava缓存的expireAfterWrite与refreshAfterWrite的区别
 
@@ -19,6 +22,13 @@ refreshAfterWrite是在指定时间内没有被创建/覆盖，则指定时间�
 
 
 
+在官方文档中，提到三种方式加载<key,value>到缓存中。分别是:
+1、LoadingCache在构建缓存的时候，使用build方法内部调用CacheLoader方法加载数据；
+2、在使用get方法的时候，如果缓存不存在该key或者key过期等，则调用get(K, Callable<V>)方式加载数据；
+3、使用粗暴直接的方式，直接想缓存中put数据。
+
+需要说明的是，如果不能通过key快速计算出value时，则还是不要在初始化的时候直接调用CacheLoader加载数据到缓存中。
+
 
 
 示例参考
@@ -27,3 +37,5 @@ https://www.baeldung.com/guava-cache
 https://segmentfault.com/a/1190000011105644
 
 https://www.jianshu.com/p/64b0df87e51b
+
+

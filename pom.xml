@@ -25,6 +25,7 @@
 
 	<modules>
 		<module>quickstart-memcached</module>
+		<module>quickstart-jcache</module>
 		<module>quickstart-redis</module>
 		<module>quickstart-hazelcast</module>
 		<module>quickstart-ehcache</module>
@@ -32,6 +33,7 @@
 		<module>quickstart-caffeine</module>
 		<module>quickstart-concurrentlinkedhashmap</module>
 		<module>quickstart-guava-cache</module>
-	</modules>
+    <module>quickstart-jetcache</module>
+  </modules>
 
 </project>

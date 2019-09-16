@@ -62,6 +62,29 @@ redis-server --maxclients 100000
 
 
 
+https://blog.csdn.net/iloveyin/article/details/46813427
+删除redis所有KEY
+
+如果要访问 Redis 中特定的数据库，使用下面的命令
+//下面的命令指定数据序号为0，即默认数据库
+redis-cli -h ip -p port -n 0 keys "*"| xargs redis-cli -h ip -p port -n 0 del
+
+
+删除所有Key，可以使用Redis的flushdb和flushall命令
+
+//删除当前数据库中的所有Key
+flushdb
+//删除所有数据库中的key
+flushall
+
+注：keys 指令可以进行模糊匹配，但如果 Key 含空格，就匹配不到了，暂时还没发现好的解决办法。
+
+
+
+
+
+
+
 下表列出了与Redis连接相关的一些基本命令。
 序号	命令	说明
 1	AUTH password	使用给定的密码验证服务器

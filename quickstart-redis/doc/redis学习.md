@@ -29,6 +29,8 @@ https://www.cnblogs.com/yangxiaolan/p/5786123.html
 
 
 
+
+
 集群中单独运行的节点称为孤儿节点
 
 

@@ -1,6 +1,11 @@
 原项目地址
 https://gitee.com/youngzil/quickstart-all
 
+SpringCache参考
+/Users/yangzl/git/quickstart-spring-boot2/quickstart-spring-cache
+
+
+
 
 J2Cache
 Java 两级缓存框架，可以让应用支持两级缓存框架 ehcache(Caffeine) + redis 。避免完全使用独立缓存系统所带来的网络IO开销问题
@@ -30,6 +35,12 @@ Coherence所有的设计都是基于多个（可以是非常多）的JVM，很�
 缓存框架
 https://www.oschina.net/project/tag/132/cachesystem?sort=view
 http://developer.51cto.com/art/201411/457423.htm
+
+
+https://gitee.com/457049726/jad-cache
+
+
+
 
 
 
