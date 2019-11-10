@@ -1,8 +1,10 @@
-原项目地址
-https://gitee.com/youngzil/quickstart-all
+项目地址
+https://github.com/youngzil/quickstart-cache
+
 
 SpringCache参考
 /Users/yangzl/git/quickstart-spring-boot2/quickstart-spring-cache
+
 
 
 
@@ -12,6 +14,10 @@ Java 两级缓存框架，可以让应用支持两级缓存框架 ehcache(Caffei
 https://gitee.com/ld/J2Cache
 
 J2Cache 是 OSChina 目前正在使用的两级缓存框架（要求至少 Java 8）。第一级缓存使用内存(同时支持 Ehcache 2.x、Ehcache 3.x 和 Caffeine)，第二级缓存使用 Redis(推荐)/Memcached 。 由于大量的缓存读取会导致 L2 的网络成为整个系统的瓶颈，因此 L1 的目标是降低对 L2 的读取次数。 该缓存框架主要用于集群环境中。单机也可使用，用于避免应用重启导致的缓存冷启动后对后端业务的冲击。
+
+J2Cache 不是另外一个缓存的造轮子框架，它是有实际的用途的，可最大限度的降低对 Redis 的压力
+J2Cache 与 JetCache 不同，后者是封装了不同的缓存框架并提供统一的 API 调用。
+在 J2Cache 推出之前，鲜有人提两级缓存框架，现在还蛮火的
 
 
 Java Caching(缓存)-策略和JCache API

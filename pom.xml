@@ -34,6 +34,7 @@
 		<module>quickstart-concurrentlinkedhashmap</module>
 		<module>quickstart-guava-cache</module>
     <module>quickstart-jetcache</module>
+    <module>quickstart-codis</module>
   </modules>
 
 </project>

@@ -16,6 +16,11 @@ Redis如何解决key冲突：使用redis的不同db（集群模式部署不行�
 如何解决Redis的并发竞争key问题：Redis事务、分布式锁
 
 
+Redis 的集群解决方案有社区的，也有官方的，社区的解决方案有 Codis 和Twemproxy,
+Codis是由我国的豌豆荚团队开源的，
+Twemproxy是Twitter团队的开源的；
+官方的集群解决方案就是 Redis Cluster，这是由 Redis 官方团队来实现的。
+
 
 ---------------------------------------------------------------------------------------------------------------------
 参考
@@ -25,8 +30,10 @@ https://github.com/menwengit/redis_source_annotation
 分布式缓存Redis使用心得：
 https://www.cnblogs.com/yangxiaolan/p/5786123.html
 
-
-
+参考
+http://redisdoc.com/topic/cluster-tutorial.html
+https://juejin.im/post/5c1bb40a6fb9a049f36211b0
+http://redisdoc.com/topic/cluster-spec.html
 
 
 
@@ -207,7 +214,20 @@ no-enviction（驱逐）：禁止驱逐数据
  ASK与MOVED虽然都是对客户端的重定向控制，但是有着本质区别。ASK重定向说明集群正在进行slot数据迁移，客户端无法知道什么时候迁移完成，因此只能是临时性的重定向，客户端不会更新slots缓存。但是MOVED重定向说明键对应的槽已经明确指定到新的节点，因此需要更新slots缓存。
  
 
- 
+
+
+
+MOVED重定向
+Redis客户端可以向集群的任意一个节点发送查询请求，节点接收到请求后会对其进行解析，如果是操作单个key的命令或者是包含多个在相同槽位key的命令，那么该节点就会去查找这个key是属于哪个槽位的。
+如果key所属的槽位由该节点提供服务，那么就直接返回结果。否则就会返回一个MOVED错误：
+GET x
+-MOVED 3999 127.0.0.1:6381
+复制代码这个错误包括了对应的key属于哪个槽位（3999）以及该槽位所在的节点的IP地址和端口号。client收到这个错误信息后，就将这些信息存储起来以便可以更准确的找到正确的节点。
+
+当客户端收到MOVED错误后，可以使用CLUSTER NODES或CLUSTER SLOTS命令来更新整个集群的信息，因为当重定向发生时，很少会是单个槽位的变更，一般都会是多个槽位一起更新。因此，在收到MOVED错误时，客户端应该尽早更新集群的分布信息。当集群达到稳定状态时，客户端保存的槽位和节点的对应信息都是正确的，cluster的性能也会达到非常高效的状态。
+
+除了MOVED重定向之外，一个完整的集群还应该支持ASK重定向。
+
  
  https://blog.csdn.net/HoldBelief/article/details/79796558
  http://blog.jobbole.com/102194/
