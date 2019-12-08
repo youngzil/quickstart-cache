@@ -1,9 +1,11 @@
 package org.quickstart.caffeine.sample;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import org.junit.Test;
 
 /**
  * @author youngzil@163.com
