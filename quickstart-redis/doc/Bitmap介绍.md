@@ -1,3 +1,7 @@
+Redis Bitmaps:
+批量字节操作主要有三个命令：BITOP，BITCOUNT，BITPOS
+
+
 
 最大长度是512M，最多2^32个不同字节
 SETBIT key offset value

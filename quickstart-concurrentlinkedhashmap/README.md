@@ -1,13 +1,13 @@
 https://github.com/ben-manes/concurrentlinkedhashmap
+ConcurrentLinkedHashMap已经被合并到了Guava包中
 
 ---------------------------------------------------------------------------------------------------------------------
 
 ConcurrentLinkedHashMap提供一个基于权重管理容量的Map，有以下特性
-
-基于LRU（Least recently used，最近最少使用）算法来替换Map中的元素
-再高负载情况下，和ConrrentHashMap具有相同的性能
-Can bound by the size of the values (e.g. Multimap cache) （这条没看懂）
-提供元素移除的通知事件
+    基于LRU（Least recently used，最近最少使用）算法来替换Map中的元素
+    再高负载情况下，和ConrrentHashMap具有相同的性能
+    Can bound by the size of the values (e.g. Multimap cache) （这条没看懂）
+    提供元素移除的通知事件
 
 
 ---------------------------------------------------------------------------------------------------------------------

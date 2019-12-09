@@ -1,15 +1,5 @@
 淘宝分布式NOSQL框架：Tair
-
-
-
-
 https://github.com/alibaba/tair
-
-
-
-
-
-
 
 
 
