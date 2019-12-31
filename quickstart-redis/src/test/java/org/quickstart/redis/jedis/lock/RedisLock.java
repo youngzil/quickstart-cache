@@ -38,6 +38,7 @@ public class RedisLock {
       while ((System.nanoTime() - nano) < timeout) {
         if (jedis.setnx(key, LOCKED) == 1) {
           jedis.expire(key, EXPIRE);
+
           locked = true;
           return locked;
         }

@@ -93,4 +93,6 @@ Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster�
 https://www.cnblogs.com/Young111/p/11518346.html
 https://www.cnblogs.com/jasontec/p/9699242.html
 https://blog.csdn.net/diyiday/article/details/83755205
+https://www.lagou.com/lgeduarticle/16937.html
+
 
