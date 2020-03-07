@@ -1,5 +1,20 @@
-Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
+1、Redis启动、连接命令
+2、Redis集群批量删除key
+   删除当前数据库中的所有Key
+3、Redis连接相关的一些基本命令
+   Redis服务器相关的一些基本命令。
+   Redis基准测试中可用选项的列表。
+   与键相关的一些基本命令
+   用于在Redis中管理字符串的基本命令。
+   与哈希/散列相关的一些基本命令。
+   与列表相关的一些基本命令。
+   与集合相关的一些基本命令。
+4、redis集群客户端命令.md
 
+---------------------------------------------------------------------------------------------------------------------
+Redis启动、连接命令
+
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
 
 连接：
 本机redis-cli
@@ -14,17 +29,19 @@ redis-cli -c -h 10.76.224.228 -p 6201 -a cmVkaXM=
 redis-cli -c -h 10.76.224.229 -p 6202 -a cmVkaXM=
 redis-cli -c -h 10.76.224.231 -p 6203 -a cmVkaXM=
 
+
+redis-cli 
+redis-cli -h host -p port -a password
+./redis-cli -h 192.168.204.131 -p 6379 -c
+redis-cli -c -h 10.76.224.229 -p 6202 -a 密码
+
+
+redis-cli --raw  防止中文乱码
+
+PING
+
+
 redis-cli -c -h 20.26.37.179 -p 28001
-
-
-
-6117982533df7977bc0ed3a53fa615ab121648f7 10.76.224.228:6201@16201 master - 0 1573279251000 1 connected 0-5460
-ff0a1b1cf497c3fc10c569011f16f5e97294f8c0 10.76.224.229:6202@16202 master - 0 1573279251745 2 connected 5461-10922
-752c4c347df68a6d2d0a22b3f329eb8d8f4654c5 10.78.228.165:6202@16202 slave ff0a1b1cf497c3fc10c569011f16f5e97294f8c0 0 1573279252000 2 connected
-23192300b0648bf8982a4b7393eab17744c27a4f 10.78.228.164:6201@16201 slave 6117982533df7977bc0ed3a53fa615ab121648f7 0 1573279253752 1 connected
-272327153132756a3a2b69d796be8b5299b6cf35 10.78.228.166:6203@16203 myself,slave bf5871398515f09f9d25a88d02692592b641632c 0 1573279253000 0 connected
-bf5871398515f09f9d25a88d02692592b641632c 10.76.224.231:6203@16203 master - 0 1573279252749 3 connected 10923-16383
-
 
 查看集群节点信息
 cluster nodes  
@@ -91,6 +108,26 @@ redis-server --maxclients 100000
 
 
 
+---------------------------------------------------------------------------------------------------------------------
+
+Redis集群批量删除key
+
+1、查看集群信息
+redis-cli -c -h 20.26.37.179 -p 28001 -a password
+cluster nodes
+
+2、删除keys
+redis-cli -c -h 20.26.37.179 -p 28001 keys "OAUTH2:TOKEN:*" | xargs -t -n1 redis-cli -c -h 20.26.37.179 -p 28001 del
+redis-cli -c -h 20.26.37.180 -p 28003 keys "OAUTH2:TOKEN:*" | xargs -t -n1 redis-cli -c -h 20.26.37.180 -p 28003 del
+redis-cli -c -h 20.26.37.181 -p 28005 keys "OAUTH2:TOKEN:*" | xargs -t -n1 redis-cli -c -h 20.26.37.181 -p 28005 del
+
+
+或者
+redis-cli -c -h 20.26.37.179 -p 28001 -n 0 keys "OAUTH2:TOKEN:*" | xargs redis-cli -c -h 20.26.37.179 -p 28001 -n 0 del
+
+
+
+删除当前数据库中的所有Key
 
 https://blog.csdn.net/iloveyin/article/details/46813427
 删除redis所有KEY
@@ -111,9 +148,7 @@ flushall
 
 
 
-
-
-
+---------------------------------------------------------------------------------------------------------------------
 
 下表列出了与Redis连接相关的一些基本命令。
 序号	命令	说明
@@ -280,7 +315,7 @@ flushall
 
 
 
-
+---------------------------------------------------------------------------------------------------------------------
 
 
 

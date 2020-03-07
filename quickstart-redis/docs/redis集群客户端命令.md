@@ -1,14 +1,3 @@
-redis-cli 
-redis-cli -h host -p port -a password
-./redis-cli -h 192.168.204.131 -p 6379 -c
-redis-cli -c -h 10.76.224.229 -p 6202 -a 密码
-
-
-redis-cli --raw  防止中文乱码
-
-PING
-
-
 三、集群客户端命令（redis-cli -c -p port）
 集群
 cluster info ：打印集群的信息

@@ -17,8 +17,6 @@ JetCache的全部功能：
     使用Cache API（2.2+，带有redis生菜客户端）的异步访问
     Spring Boot支持
     
-    
-    
 JetCache提供的核心能力包括：
     提供统一的，类似jsr-107风格的API访问Cache，并可通过注解创建并配置Cache实例
     通过注解实现声明式的方法缓存，支持TTL和两级缓存
