@@ -58,8 +58,8 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
+      <version>1.7.30</version>
+    </dependency>
 
 		<!-- alisoft-xplatform-asf-cache-2.5.1客户端，在lib文件夹中，依赖的jar -->
 		<dependency>

@@ -5,7 +5,6 @@ import com.googlecode.concurrentlinkedhashmap.Weighers;
 import com.sun.javafx.geom.Edge;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
-import org.junit.Test;
 import sun.security.provider.certpath.Vertex;
 
 /**
@@ -15,7 +14,7 @@ import sun.security.provider.certpath.Vertex;
  */
 public class MapTest {
 
-  @Test
+  @org.junit.Test
   public void testMap() {
 
     // ConcurrentMap<K, V> cache = new ConcurrentLinkedHashMap.Builder<K, V>()

@@ -57,6 +57,10 @@ https://github.com/lettuce-io/lettuce-core/wiki
 
 
 
+Redis-shake是一个用于在两个redis之间同步数据的工具，满足用户非常灵活的同步、迁移需求。
+https://github.com/alibaba/RedisShake
+
+
 
 
 参考
