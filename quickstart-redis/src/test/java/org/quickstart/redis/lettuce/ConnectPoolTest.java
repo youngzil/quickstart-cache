@@ -1,5 +1,16 @@
 package org.quickstart.redis.lettuce;
 
+import io.lettuce.core.RedisFuture;
+import io.lettuce.core.support.BoundedAsyncPool;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import java.util.concurrent.ExecutionException;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.junit.Test;
+
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.TransactionResult;
@@ -15,11 +26,6 @@ import io.lettuce.core.support.AsyncConnectionPoolSupport;
 import io.lettuce.core.support.AsyncPool;
 import io.lettuce.core.support.BoundedPoolConfig;
 import io.lettuce.core.support.ConnectionPoolSupport;
-import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.junit.Test;
 
 /**
  * @author youngzil@163.com
@@ -71,7 +77,7 @@ public class ConnectPoolTest {
     /* 同步执行的命令 */
     RedisAdvancedClusterCommands<String, String> commands = connect.sync();
 
-    commands.set("test","hello");
+    commands.set("test", "hello");
 
     String str = commands.get("test");
     System.out.println(str);
@@ -90,7 +96,6 @@ public class ConnectPoolTest {
 
     connect.close();
     client.shutdown();
-
 
   }
 
@@ -165,6 +170,70 @@ public class ConnectPoolTest {
     // after pool completion
     clusterClient.shutdownAsync();
 
+  }
+
+  @Test
+  public void testAsyncClusterUsage2() throws Exception {
+
+    List<RedisURI> list = new ArrayList<>();
+    list.add(RedisURI.create("redis://20.26.37.179:28001"));
+    list.add(RedisURI.create("redis://20.26.37.179:28002"));
+    list.add(RedisURI.create("redis://20.26.37.180:28003"));
+    list.add(RedisURI.create("redis://20.26.37.180:28004"));
+    list.add(RedisURI.create("redis://20.26.37.181:28005"));
+    list.add(RedisURI.create("redis://20.26.37.181:28006"));
+    RedisClusterClient redisClusterClient = RedisClusterClient.create(list);
+
+
+    AsyncPool<StatefulRedisClusterConnection<String, String>> pool = AsyncConnectionPoolSupport.createBoundedObjectPool(
+        () -> redisClusterClient.connectAsync(StringCodec.UTF8), BoundedPoolConfig.builder().maxIdle(10).maxTotal(20).minIdle(1).build());
+
+    pool.acquire();
+
+    BoundedAsyncPool boundedAsyncPool = (BoundedAsyncPool) pool;
+    System.out.println(boundedAsyncPool.getMaxTotal());
+
+
+  }
+
+  @Test
+  public  void operCluster(){
+    List<RedisURI> list = new ArrayList<>();
+    list.add(RedisURI.create("redis://20.26.37.179:28001"));
+    list.add(RedisURI.create("redis://20.26.37.179:28002"));
+    list.add(RedisURI.create("redis://20.26.37.180:28003"));
+    list.add(RedisURI.create("redis://20.26.37.180:28004"));
+    list.add(RedisURI.create("redis://20.26.37.181:28005"));
+    list.add(RedisURI.create("redis://20.26.37.181:28006"));
+    RedisClusterClient client = RedisClusterClient.create(list);
+
+    StatefulRedisClusterConnection<String, String> connect = client.connect();
+
+    /**
+     * 同步执行命令
+     */
+    RedisAdvancedClusterCommands<String, String> commands = connect.sync();
+    commands.set("hello","hello world");
+    String str = commands.get("hello");
+    System.out.println(str);
+
+    /**
+     * 异步执行命令
+     */
+    RedisAdvancedClusterAsyncCommands<String,String> asyncCommands = connect.async();
+    RedisFuture<String> future = asyncCommands.get("hello");
+
+    try {
+      String str1 = future.get();
+      System.out.println(str1);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+
+    connect.close();
+    client.shutdown();
   }
 
 }

@@ -8,6 +8,8 @@
 
 3、[Redisson实现分布式锁(3)—项目落地实现](https://www.cnblogs.com/qdhxhz/p/11059200.html)
 
+4、[源码地址](https://github.com/yudiandemingzi/spring-boot-distributed-redisson)
+
 该项目可以直接运用于实际开发中，作为分布式锁使用。
 
 

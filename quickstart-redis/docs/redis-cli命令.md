@@ -30,6 +30,8 @@ redis-cli -c -h 10.76.224.229 -p 6202 -a cmVkaXM=
 redis-cli -c -h 10.76.224.231 -p 6203 -a cmVkaXM=
 
 
+
+
 redis-cli 
 redis-cli -h host -p port -a password
 ./redis-cli -h 192.168.204.131 -p 6379 -c

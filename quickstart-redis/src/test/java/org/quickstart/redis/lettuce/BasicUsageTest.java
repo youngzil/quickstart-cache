@@ -9,6 +9,7 @@ import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.async.RedisStringAsyncCommands;
 import io.lettuce.core.api.reactive.RedisReactiveCommands;
 import io.lettuce.core.api.reactive.RedisStringReactiveCommands;
+import io.lettuce.core.api.sync.RedisCommands;
 import io.lettuce.core.api.sync.RedisStringCommands;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import io.lettuce.core.pubsub.api.sync.RedisPubSubCommands;
@@ -32,6 +33,7 @@ public class BasicUsageTest {
 
     // client
     RedisClient client = RedisClient.create("redis://localhost");
+    // RedisClient client = RedisClient.create(RedisURI.create("redis://127.0.0.1:7001"));
 
     // 设定超时时间为20s
     // RedisClient client = RedisClient.create(RedisURI.create("localhost", 6379));
@@ -66,15 +68,32 @@ public class BasicUsageTest {
 
     RedisClient client = RedisClient.create("redis://localhost");
     StatefulRedisConnection<String, String> connection = client.connect();
+
+    // 异步调用
     RedisStringAsyncCommands<String, String> async = connection.async();
     RedisFuture<String> set = async.set("key", "value");
     RedisFuture<String> get = async.get("key");
 
     // async.awaitAll(set, get);
-
     String setStr = set.get();
     String getStr = get.get();
 
+    RedisAsyncCommands<String,String> asyncCommands = connection.async();
+    RedisFuture<String> future = asyncCommands.get("key");
+    try {
+      String str1 = future.get();
+      System.out.println(str1);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+
+    // close connection
+    connection.close();
+
+    // shutdown
+    client.shutdown();
   }
 
   @Test

@@ -26,6 +26,7 @@ public class AsynchronousAPI {
 
     RedisFuture<String> future = async.get("host");
 
+
     try {
       String value = future.get(60, TimeUnit.SECONDS);
       System.out.println(value);
