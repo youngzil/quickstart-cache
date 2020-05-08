@@ -37,6 +37,8 @@ public class AsyncTest {
     String value2 = future2.get(1, TimeUnit.MINUTES);
     System.out.println("value2=" + value2);
 
+
+
     // 异步方式，当 RedisFuture<T>是完成状态时自动触发后面的动作
     RedisFuture<String> future3 = commands.get("key");
     future3.thenAccept(new Consumer<String>() {

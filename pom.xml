@@ -50,6 +50,7 @@
     <module>quickstart-jetcache</module>
     <module>quickstart-memcached</module>
     <module>quickstart-redis</module>
+    <module>quickstart-redisson1</module>
     <module>quickstart-tair</module>
     <module>redisson-distributed-lock</module>
   </modules>

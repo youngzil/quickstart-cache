@@ -4,6 +4,7 @@ import io.lettuce.core.RedisFuture;
 import io.lettuce.core.support.BoundedAsyncPool;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import java.util.concurrent.ExecutionException;
@@ -176,19 +177,36 @@ public class ConnectPoolTest {
   public void testAsyncClusterUsage2() throws Exception {
 
     List<RedisURI> list = new ArrayList<>();
-    list.add(RedisURI.create("redis://20.26.37.179:28001"));
+    /*list.add(RedisURI.create("redis://20.26.37.179:28001"));
     list.add(RedisURI.create("redis://20.26.37.179:28002"));
     list.add(RedisURI.create("redis://20.26.37.180:28003"));
     list.add(RedisURI.create("redis://20.26.37.180:28004"));
     list.add(RedisURI.create("redis://20.26.37.181:28005"));
-    list.add(RedisURI.create("redis://20.26.37.181:28006"));
-    RedisClusterClient redisClusterClient = RedisClusterClient.create(list);
+    list.add(RedisURI.create("redis://20.26.37.181:28006"));*/
 
+    list.add(RedisURI.create("redis://10.1.243.23:7000"));
+    list.add(RedisURI.create("redis://10.1.243.23:7001"));
+    list.add(RedisURI.create("redis://10.1.243.23:7002"));
+    list.add(RedisURI.create("redis://10.1.243.23:7003"));
+    list.add(RedisURI.create("redis://10.1.243.23:7004"));
+    list.add(RedisURI.create("redis://10.1.243.23:7005"));
+
+    RedisClusterClient redisClusterClient = RedisClusterClient.create(list);
+    redisClusterClient.getPartitions();
 
     AsyncPool<StatefulRedisClusterConnection<String, String>> pool = AsyncConnectionPoolSupport.createBoundedObjectPool(
         () -> redisClusterClient.connectAsync(StringCodec.UTF8), BoundedPoolConfig.builder().maxIdle(10).maxTotal(20).minIdle(1).build());
 
-    pool.acquire();
+    pool.acquire().thenCompose(connection -> {
+          RedisAsyncCommands<String, String> asynComannd = (RedisAsyncCommands<String, String>) ((StatefulRedisClusterConnection<String, String>)connection).async();
+          connection.setAutoFlushCommands(false);
+            asynComannd.del("sysCode1:configName1:paramName1");
+          // asynComannd.flushCommands();
+          connection.flushCommands();
+          pool.release(connection);
+
+      return null;
+    });
 
     BoundedAsyncPool boundedAsyncPool = (BoundedAsyncPool) pool;
     System.out.println(boundedAsyncPool.getMaxTotal());
