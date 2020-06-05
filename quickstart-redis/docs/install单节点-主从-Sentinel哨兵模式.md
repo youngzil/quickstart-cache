@@ -58,6 +58,10 @@ Mac 下安装
  6. sudo make install 
  
  
+启动：
+redis-server
+
+ 
  mac 下安装也可以使用 homebrew，homebrew 是 mac 的包管理器。
 1、执行 brew install redis
 2、启动 redis，可以使用后台服务启动 brew services start redis。或者直接启动：redis-server /usr/local/etc/redis.conf

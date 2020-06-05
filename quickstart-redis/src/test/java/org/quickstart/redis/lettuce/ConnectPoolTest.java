@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import io.lettuce.core.RedisClient;
@@ -35,7 +36,8 @@ import io.lettuce.core.support.ConnectionPoolSupport;
  */
 public class ConnectPoolTest {
 
-  @Test
+  /*@Test
+  @Ignore
   public void testBaseUsage() throws Exception {
     RedisClient client = RedisClient.create(RedisURI.create("localhost", 6379));
 
@@ -59,7 +61,7 @@ public class ConnectPoolTest {
     // terminating
     pool.close();
     client.shutdown();
-  }
+  }*/
 
   @Test
   public void testClusterUsageZero() throws Exception {
@@ -100,7 +102,7 @@ public class ConnectPoolTest {
 
   }
 
-  @Test
+  /*@Test
   public void testClusterUsage() throws Exception {
 
     RedisClusterClient clusterClient = RedisClusterClient.create(RedisURI.create("localhost", 6379));
@@ -118,7 +120,7 @@ public class ConnectPoolTest {
     pool.close();
     clusterClient.shutdown();
 
-  }
+  }*/
 
   @Test
   public void testAsyncBaseUsage() throws Exception {
