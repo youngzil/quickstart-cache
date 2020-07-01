@@ -1,3 +1,41 @@
+Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
+
+
+Key（键）
+DEL、EXISTS、Expire、Keys、TTL（Pttl毫秒）、Rename、Renamenx
+
+
+String（字符串）、
+SET、Get、Del、Setex、Setnx、Incr、Decr、Decrby、Append
+
+
+Hash（哈希表）、
+Hdel、Hget、Hgetall、Hset、Hsetnx、Hlen
+
+
+List（列表）、
+Lset、Lrem、Lindex、Lpop、Lpush、Rpop、Rpush、、Blpop、Brpop
+
+
+Set（集合）、
+Sadd、Srem、Sscan、Spop、Smove
+
+
+SortedSet（有序集合）、
+Zadd、Zrem、Zscan、、
+
+
+
+Pub/Sub（发布/订阅）、
+Publish、Subscribe、Unsubscribe
+
+
+Transaction（事务）
+Multi、Exec、Discard、
+
+
+---------------------------------------------------------------------------------------------------------------------
+
 三、集群客户端命令（redis-cli -c -p port）
 集群
 cluster info ：打印集群的信息
@@ -170,23 +208,25 @@ Redis Zscan 命令	迭代有序集合中的元素（包括元素成员和元素�
 
 7、Redis 发布订阅 命令
 命令	描述
-Redis Psubscribe 命令	订阅一个或多个符合给定模式的频道。
 Redis Pubsub 命令	查看订阅与发布系统状态。
 Redis Publish 命令	将信息发送到指定的频道。
-Redis Punsubscribe 命令	退订所有给定模式的频道。
+
 Redis Subscribe 命令	订阅给定的一个或多个频道的信息。
 Redis Unsubscribe 命令	指退订给定的频道。
+
+Redis Psubscribe 命令	订阅一个或多个符合给定模式的频道。
+Redis Punsubscribe 命令	退订所有给定模式的频道。
 
 
 
 
 8、Redis 事务 命令
 命令	描述
-Redis Discard 命令	取消事务，放弃执行事务块内的所有命令。
-Redis Exec 命令	执行所有事务块内的命令。
 Redis Multi 命令	标记一个事务块的开始。
-Redis Unwatch 命令	取消 WATCH 命令对所有 key 的监视。
+Redis Exec 命令	执行所有事务块内的命令。
+Redis Discard 命令	取消事务，放弃执行事务块内的所有命令。
 Redis Watch 命令	监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。
+Redis Unwatch 命令	取消 WATCH 命令对所有 key 的监视。
 
 
 

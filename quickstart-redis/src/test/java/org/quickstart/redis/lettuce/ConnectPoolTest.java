@@ -1,20 +1,10 @@
 package org.quickstart.redis.lettuce;
 
-import io.lettuce.core.RedisFuture;
-import io.lettuce.core.support.BoundedAsyncPool;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-import java.util.concurrent.ExecutionException;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.junit.Ignore;
-import org.junit.Test;
-
+import io.lettuce.core.KeyScanCursor;
 import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisFuture;
 import io.lettuce.core.RedisURI;
+import io.lettuce.core.ScanArgs;
 import io.lettuce.core.TransactionResult;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
@@ -26,8 +16,18 @@ import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
 import io.lettuce.core.codec.StringCodec;
 import io.lettuce.core.support.AsyncConnectionPoolSupport;
 import io.lettuce.core.support.AsyncPool;
+import io.lettuce.core.support.BoundedAsyncPool;
 import io.lettuce.core.support.BoundedPoolConfig;
 import io.lettuce.core.support.ConnectionPoolSupport;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.junit.Test;
 
 /**
  * @author youngzil@163.com
@@ -36,8 +36,7 @@ import io.lettuce.core.support.ConnectionPoolSupport;
  */
 public class ConnectPoolTest {
 
-  /*@Test
-  @Ignore
+  @Test
   public void testBaseUsage() throws Exception {
     RedisClient client = RedisClient.create(RedisURI.create("localhost", 6379));
 
@@ -61,7 +60,7 @@ public class ConnectPoolTest {
     // terminating
     pool.close();
     client.shutdown();
-  }*/
+  }
 
   @Test
   public void testClusterUsageZero() throws Exception {
@@ -102,7 +101,7 @@ public class ConnectPoolTest {
 
   }
 
-  /*@Test
+  @Test
   public void testClusterUsage() throws Exception {
 
     RedisClusterClient clusterClient = RedisClusterClient.create(RedisURI.create("localhost", 6379));
@@ -120,7 +119,7 @@ public class ConnectPoolTest {
     pool.close();
     clusterClient.shutdown();
 
-  }*/
+  }
 
   @Test
   public void testAsyncBaseUsage() throws Exception {
@@ -200,12 +199,13 @@ public class ConnectPoolTest {
         () -> redisClusterClient.connectAsync(StringCodec.UTF8), BoundedPoolConfig.builder().maxIdle(10).maxTotal(20).minIdle(1).build());
 
     pool.acquire().thenCompose(connection -> {
-          RedisAsyncCommands<String, String> asynComannd = (RedisAsyncCommands<String, String>) ((StatefulRedisClusterConnection<String, String>)connection).async();
-          connection.setAutoFlushCommands(false);
-            asynComannd.del("sysCode1:configName1:paramName1");
-          // asynComannd.flushCommands();
-          connection.flushCommands();
-          pool.release(connection);
+      RedisAsyncCommands<String, String> asynComannd = (RedisAsyncCommands<String, String>) ((StatefulRedisClusterConnection<String, String>) connection)
+          .async();
+      connection.setAutoFlushCommands(false);
+      asynComannd.del("sysCode1:configName1:paramName1");
+      // asynComannd.flushCommands();
+      connection.flushCommands();
+      pool.release(connection);
 
       return null;
     });
@@ -217,7 +217,7 @@ public class ConnectPoolTest {
   }
 
   @Test
-  public  void operCluster(){
+  public void operCluster() {
     List<RedisURI> list = new ArrayList<>();
     list.add(RedisURI.create("redis://20.26.37.179:28001"));
     list.add(RedisURI.create("redis://20.26.37.179:28002"));
@@ -233,14 +233,14 @@ public class ConnectPoolTest {
      * 同步执行命令
      */
     RedisAdvancedClusterCommands<String, String> commands = connect.sync();
-    commands.set("hello","hello world");
+    commands.set("hello", "hello world");
     String str = commands.get("hello");
     System.out.println(str);
 
     /**
      * 异步执行命令
      */
-    RedisAdvancedClusterAsyncCommands<String,String> asyncCommands = connect.async();
+    RedisAdvancedClusterAsyncCommands<String, String> asyncCommands = connect.async();
     RedisFuture<String> future = asyncCommands.get("hello");
 
     try {
@@ -251,6 +251,72 @@ public class ConnectPoolTest {
     } catch (ExecutionException e) {
       e.printStackTrace();
     }
+
+    connect.close();
+    client.shutdown();
+  }
+
+
+  @Test
+  public void scanAndKeys() {
+    List<RedisURI> list = new ArrayList<>();
+    list.add(RedisURI.create("redis://10.1.243.23:7000"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28001"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28002"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28003"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28004"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28005"));
+    // list.add(RedisURI.create("redis://10.1.243.23:28006"));
+
+    RedisClusterClient client = RedisClusterClient.create(list);
+
+    StatefulRedisClusterConnection<String, String> connect = client.connect();
+
+    /**
+     * 同步执行命令
+     */
+    RedisAdvancedClusterCommands<String, String> commands = connect.sync();
+
+    long startTime = System.currentTimeMillis();
+
+    List<String> keys = commands.keys("ServiceGroup:*");
+    System.out.println("keys count = " + keys.size());
+
+    long midTime = System.currentTimeMillis();
+
+
+    /*Set<String> result = new HashSet<>();
+    ScanArgs args = new ScanArgs();
+    args.match("ServiceGroup*");
+    args.limit(200);
+    KeyScanCursor<String> currentCursor = null;
+    do {
+      if (currentCursor == null) {
+        currentCursor = commands.scan(args);
+      } else {
+        currentCursor = commands.scan(currentCursor, args);
+      }
+      result.addAll(currentCursor.getKeys());
+    }
+    while (!currentCursor.isFinished());
+    System.out.println(result);*/
+
+
+    // ScanIterator<String> scan = ScanIterator.scan(commands, ScanArgs.Builder.limit(50).match("ServiceGroup*"));
+
+    ScanArgs scanArgs = ScanArgs.Builder.limit(50).match("ServiceGroup*");
+    KeyScanCursor<String> cursor = commands.scan(scanArgs);
+    Set<String> scans = new HashSet<>();
+    while (!cursor.isFinished()) {
+      scans.addAll(cursor.getKeys());
+      System.out.println(scans.size());
+      cursor = commands.scan(cursor,scanArgs);
+    }
+    System.out.println("scans count = " + scans.size());
+
+    long endTime = System.currentTimeMillis();
+
+    System.out.println("keys time=" + (midTime - startTime) + ",scans time = " + (endTime - midTime));
 
     connect.close();
     client.shutdown();

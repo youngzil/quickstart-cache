@@ -49,6 +49,9 @@ public class AsynchronousAPI {
     RedisFuture<Map<String,String>> ff2 = hashAsyncCommands.hgetall("map");
     System.out.println(ff2.get());
 
+    hashAsyncCommands.hdel("map","test2");
+    RedisFuture<Map<String,String>> ff3 = hashAsyncCommands.hgetall("map");
+    System.out.println(ff3.get());
 
     try {
       String value = future.get(60, TimeUnit.SECONDS);

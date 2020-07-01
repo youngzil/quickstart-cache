@@ -1,3 +1,9 @@
+1、使用Redis的命令部署
+2、使用ruby脚本安装集群
+
+---------------------------------------------------------------------------------------------------------------------
+使用Redis的命令部署
+
 Redis 数据分区
 Redis Cluster采用虚拟槽分区，所有的键根据哈希函数映射到0 ～ 16383，计算公式：slot = CRC16(key)&16383。每一个节点负责维护一部分槽以及槽所映射的键值数据。
 虚拟槽范围0 ～ 16383（共有16384个，也就是2的14次方）
@@ -52,12 +58,9 @@ OK
 版权声明：本文为博主原创文章，转载请附上博文链接！
 
 
-
-集群部署参考
-https://blog.csdn.net/zsj777/article/category/7646713
-https://blog.csdn.net/zsj777/article/details/80235568
-
+---------------------------------------------------------------------------------------------------------------------
 使用ruby脚本安装集群
+
 yum install ruby //安装ruby
 yum install rubygems  //安装rubygems，最新版本会自动安装
 gem install redis
@@ -66,11 +69,6 @@ gem install redis
 ruby redis-trib.rb  create --replicas 1 192.168.127.130:7000 192.168.127.130:7001 192.168.127.130:7002 192.168.127.130:7003 192.168.127.130:7004 192.168.127.130:7005 
 
 每个Redis的节点都有一个ID值，此ID将被此特定redis实例永久使用，以便实例在集群上下文中具有唯一的名称。 每个节点都会记住使用此ID的每个其他节点，而不是通过IP或端口。IP地址和端口可能会发生变化，但唯一的节点标识符在节点的整个生命周期内都不会改变。 我们简单地称这个标识符为节点ID。
-
-
-redis集群搭建及扩容和缩容操作
-https://blog.csdn.net/qq_20679251/article/details/81194522
-https://blog.csdn.net/zsj777/article/details/80235568
 
 
 集群扩容
@@ -110,11 +108,11 @@ ruby redis-trib.rb reshard 192.168.127.130:7006
 
 
 
-
-
-
-
-
+集群部署参考：redis集群搭建及扩容和缩容操作
+https://blog.csdn.net/qq_20679251/article/details/81194522
+https://blog.csdn.net/zsj777/article/category/7646713
+https://blog.csdn.net/zsj777/article/details/80235568
+https://www.jianshu.com/p/22cc38569726
 
 
 
