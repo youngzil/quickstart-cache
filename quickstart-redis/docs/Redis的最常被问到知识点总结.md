@@ -1,3 +1,10 @@
+常问的知识点
+参考链接
+
+
+
+常问的知识点
+
 1.redis是什么？
 2.redis怎么使用？
 3.热点数据和冷数据是什么
@@ -178,5 +185,17 @@ https://www.cnblogs.com/Young111/p/11518346.html
 https://www.cnblogs.com/jasontec/p/9699242.html
 https://blog.csdn.net/diyiday/article/details/83755205
 https://www.lagou.com/lgeduarticle/16937.html
+
+
+
+
+
+参考链接
+https://blog.csdn.net/b644ROfP20z37485O35M/article/details/106893764
+https://youzhixueyuan.com/redis-interview-question-49-answers.html
+https://juejin.im/post/5cb13b4d6fb9a0687b7dd0bd
+https://blog.csdn.net/weixin_33890526/article/details/88696094
+https://blog.csdn.net/yajlv/article/details/73467865
+
 
 

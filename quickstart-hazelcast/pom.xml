@@ -20,21 +20,22 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <hazelcast.version>3.9.3</hazelcast.version>
+    <hazelcast.version>4.0.1</hazelcast.version>
   </properties>
 
   <dependencies>
 
+<!--      <version>${hazelcast.version}</version>-->
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast</artifactId>
-      <version>${hazelcast.version}</version>
+      <version>4.0.1</version>
     </dependency>
 
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast-client</artifactId>
-      <version>${hazelcast.version}</version>
+      <version>3.12.8</version>
     </dependency>
 
   </dependencies>

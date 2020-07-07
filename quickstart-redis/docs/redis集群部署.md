@@ -104,6 +104,14 @@ ruby redis-trib.rb reshard 192.168.127.130:7006
 
 
 
+参考
+https://segmentfault.com/a/1190000023083072
+https://cloud.tencent.com/developer/article/1644783
+https://www.cnblogs.com/guarderming/p/13237649.html
+
+
+
+---------------------------------------------------------------------------------------------------------------------
 
 
 

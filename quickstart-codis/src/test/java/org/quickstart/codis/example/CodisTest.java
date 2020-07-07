@@ -1,9 +1,8 @@
 package org.quickstart.codis.example;
 
-import org.junit.Test;
-
 import io.codis.jodis.JedisResourcePool;
 import io.codis.jodis.RoundRobinJedisPool;
+import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 /**

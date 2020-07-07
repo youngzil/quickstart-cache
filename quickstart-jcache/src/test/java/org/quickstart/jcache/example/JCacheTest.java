@@ -1,13 +1,10 @@
 package org.quickstart.jcache.example;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.spi.CachingProvider;
-import org.junit.Test;
 
 /**
  * @author youngzil@163.com
@@ -30,8 +27,6 @@ public class JCacheTest {
 
     cacheManager.close();
   }
-
-
 
 
 }

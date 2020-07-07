@@ -7,10 +7,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.ListPosition;
 
 public class RedisUtil {
 
@@ -860,7 +860,7 @@ public class RedisUtil {
      * @param value 添加的value
      * @return
      */
-    public Long linsert(String key, LIST_POSITION where, String pivot, String value) {
+    public Long linsert(String key, ListPosition where, String pivot, String value) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1831,19 +1831,20 @@ public class RedisUtil {
      */
     public static void returnResource(JedisPool pool, Jedis jedis) {
         if (jedis != null) {
-            pool.returnResourceObject(jedis);
+            // pool.returnResourceObject(jedis);
+          jedis.close();
         }
     }
 
     /**
      * 返还到连接池
      *
-     * @param pool
      * @param jedis
      */
     public static void returnResource(Jedis jedis) {
         if (jedis != null) {
-            pool.returnResourceObject(jedis);
+            // pool.returnResourceObject(jedis);
+          jedis.close();
         }
     }
 }

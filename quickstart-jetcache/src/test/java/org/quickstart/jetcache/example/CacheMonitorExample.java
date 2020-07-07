@@ -3,7 +3,7 @@ package org.quickstart.jetcache.example;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.embedded.CaffeineCacheBuilder;
 import com.alicp.jetcache.support.DefaultCacheMonitor;
-import com.alicp.jetcache.support.DefaultCacheMonitorManager;
+// import com.alicp.jetcache.support.DefaultCacheMonitorManager;
 import com.alicp.jetcache.support.FastjsonKeyConvertor;
 
 import java.util.concurrent.TimeUnit;
@@ -24,10 +24,9 @@ public class CacheMonitorExample {
                 .buildCache();
 
         boolean verboseLog = false;
-        DefaultCacheMonitorManager statLogger = new DefaultCacheMonitorManager(1, TimeUnit.SECONDS, verboseLog);
-
-        statLogger.add(orderCacheMonitor);
-        statLogger.start();
+        // DefaultCacheMonitorManager statLogger = new DefaultCacheMonitorManager(1, TimeUnit.SECONDS, verboseLog);
+        // statLogger.add(orderCacheMonitor);
+        // statLogger.start();
 
         Thread t = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
@@ -45,6 +44,6 @@ public class CacheMonitorExample {
         t.start();
         t.join();
 
-        statLogger.stop();
+        // statLogger.stop();
     }
 }

@@ -112,3 +112,22 @@ redis.conf 配置项说明如下：
 
     include /path/to/local.conf
 
+
+
+
+
+#bind 127.0.0.1 # 取消仅限本地访问的限制
+daemonize yes # 设置redis默认后台运行
+protected-mode no # 关闭保护模式
+maxmemory 2147483648 # 最大内存2G
+maxmemory-policy volatile-lru # 过期清理策略
+pidfile /var/run/redis_7001.pid # pidfile文件对应7001
+port 7001 # 端口7001 
+requirepass admin123456 # redis登录密码，默认admin123456
+masterauth admin123456 # redis认证密码,默认admin123456
+cluster-enabled yes # 开启集群 
+cluster-config-file nodes-7001.conf # 集群的配置，配置文件首次启动自动生成7001
+
+
+
+

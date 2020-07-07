@@ -25,7 +25,7 @@ import org.junit.Test;
 public class GuavaCacheTest {
 
   @Test
-  public void testMqp() throws InterruptedException {
+  public void testMap() throws InterruptedException {
     // MapMaker 用于构建一个可以自动将key或者value包装成WeakRefrence的ConcurrentMap，并且效率和ConcurrentMap相当
     ConcurrentMap<String, Integer> map = new MapMaker().weakKeys().makeMap();
     String key = "key1";

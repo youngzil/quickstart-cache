@@ -20,10 +20,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <ehcache.version>3.5.2</ehcache.version>
+    <ehcache.version>3.8.1</ehcache.version>
     <jcache.version>1.0.0</jcache.version>
-    <jcache.version>1.1.0</jcache.version>
-    <shiro.version>1.4.2</shiro.version>
+    <jcache.version>1.1.1</jcache.version>
+    <shiro.version>1.5.3</shiro.version>
   </properties>
 
   <dependencies>
@@ -66,12 +66,12 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.7</version>
+      <version>1.7.30</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.7</version>
+      <version>1.7.30</version>
     </dependency>
 
     <dependency>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.7</version>
+      <version>1.7.30</version>
       <scope>test</scope>
     </dependency>
 

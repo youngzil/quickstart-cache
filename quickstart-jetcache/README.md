@@ -5,7 +5,7 @@ https://github.com/alibaba/jetcache
 
 
 介绍
-JetCache是​​一种Java缓存抽象，可为各种缓存解决方案提供一致的使用。它提供了比Spring Cache更强大的注释。JetCache中的注释支持本机TTL，两级缓存和分布式自动刷新，您也可以Cache手动操作实例代码。目前有四种工具：RedisCache，TairCache（在github上不开源）， CaffeineCache（在内存中），简单LinkedHashMapCache（在内存中）。
+JetCache是​​一种Java缓存抽象，可为各种缓存解决方案提供一致的使用。它提供了比Spring Cache更强大的注释。JetCache中的注释支持本机TTL，两级缓存和分布式自动刷新，您也可以Cache手动操作实例代码。目前有四种工具：RedisCache(如spring-data-redis)，TairCache（在github上不开源）， CaffeineCache（在内存中），简单LinkedHashMapCache（在内存中）。
 
 JetCache的全部功能：
     通过一致的Cache API操作缓存。

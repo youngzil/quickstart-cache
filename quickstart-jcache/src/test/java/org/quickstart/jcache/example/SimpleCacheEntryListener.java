@@ -1,10 +1,14 @@
 package org.quickstart.jcache.example;
 
 import java.io.Serializable;
+import javax.cache.configuration.FactoryBuilder;
+import javax.cache.configuration.MutableCacheEntryListenerConfiguration;
+import javax.cache.configuration.MutableConfiguration;
 import javax.cache.event.CacheEntryCreatedListener;
 import javax.cache.event.CacheEntryEvent;
 import javax.cache.event.CacheEntryListenerException;
 import javax.cache.event.CacheEntryUpdatedListener;
+import org.junit.Test;
 
 /**
  * @author youngzil@163.com
@@ -36,12 +40,19 @@ public class SimpleCacheEntryListener implements CacheEntryCreatedListener<Strin
     this.created = true;
   }
 
-  /*  @Test
+    /*@Test
   public void whenRunEvent_thenCorrect() throws InterruptedException {
     this.listenerConfiguration
         = new MutableCacheEntryListenerConfiguration<String, String>(
         FactoryBuilder.factoryOf(this.listener), null, false, true);
     this.cache.registerCacheEntryListener(this.listenerConfiguration);
+
+
+      MutableConfiguration<Integer, String> config
+          = new MutableConfiguration<>()
+          .setReadThrough(true)
+          .setCacheLoaderFactory(new FactoryBuilder.SingletonFactory(
+              new SimpleCacheLoader()));
   
     assertEquals(false, this.listener.getCreated());
   

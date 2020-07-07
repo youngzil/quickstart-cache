@@ -8,12 +8,9 @@
  */
 package org.quickstart.redis.jedis.cluster;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
@@ -90,11 +87,7 @@ public class RedisClusterTest {
 
     public void destroy() {
         if (redisCluster != null) {
-            try {
-                redisCluster.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+          redisCluster.close();
         }
     }
 
