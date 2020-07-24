@@ -66,12 +66,12 @@ public class ConnectPoolTest {
   public void testClusterUsageZero() throws Exception {
 
     ArrayList<RedisURI> list = new ArrayList<>();
-    list.add(RedisURI.create("redis://10.1.243.23:7000"));
-    list.add(RedisURI.create("redis://10.1.243.23:7001"));
-    list.add(RedisURI.create("redis://10.1.243.23:7002"));
-    list.add(RedisURI.create("redis://10.1.243.23:7003"));
-    list.add(RedisURI.create("redis://10.1.243.23:7004"));
-    list.add(RedisURI.create("redis://10.1.243.23:7005"));
+    list.add(RedisURI.create("redis://20.26.85.227:7000"));
+    list.add(RedisURI.create("redis://20.26.85.227:7001"));
+    list.add(RedisURI.create("redis://20.26.85.227:7002"));
+    list.add(RedisURI.create("redis://20.26.85.227:7003"));
+    list.add(RedisURI.create("redis://20.26.85.227:7004"));
+    list.add(RedisURI.create("redis://20.26.85.227:7005"));
     RedisClusterClient client = RedisClusterClient.create(list);
     // RedisClusterClient client = RedisClusterClient.create("redis://192.168.37.128:7000");
     StatefulRedisClusterConnection<String, String> connect = client.connect();
@@ -127,7 +127,7 @@ public class ConnectPoolTest {
     RedisClient client = RedisClient.create();
 
     AsyncPool<StatefulRedisConnection<String, String>> pool = AsyncConnectionPoolSupport
-        .createBoundedObjectPool(() -> client.connectAsync(StringCodec.UTF8, RedisURI.create("localhost", 6379)), BoundedPoolConfig.create());
+        .createBoundedObjectPool(() -> client.connectAsync(StringCodec.UTF8, RedisURI.create("20.26.85.227", 7000)), BoundedPoolConfig.create());
 
     // execute work
     CompletableFuture<TransactionResult> transactionResult = pool.acquire().thenCompose(connection -> {
@@ -151,7 +151,16 @@ public class ConnectPoolTest {
   @Test
   public void testAsyncClusterUsage() throws Exception {
 
-    RedisClusterClient clusterClient = RedisClusterClient.create(RedisURI.create("localhost", 6379));
+    // RedisClusterClient clusterClient = RedisClusterClient.create(RedisURI.create("20.26.85.227", 7000));
+
+    ArrayList<RedisURI> list = new ArrayList<>();
+    list.add(RedisURI.create("redis://20.26.85.227:7000"));
+    list.add(RedisURI.create("redis://20.26.85.227:7001"));
+    list.add(RedisURI.create("redis://20.26.85.227:7002"));
+    list.add(RedisURI.create("redis://20.26.85.227:7003"));
+    list.add(RedisURI.create("redis://20.26.85.227:7004"));
+    list.add(RedisURI.create("redis://20.26.85.227:7005"));
+    RedisClusterClient clusterClient = RedisClusterClient.create(list);
 
     AsyncPool<StatefulRedisClusterConnection<String, String>> pool =
         AsyncConnectionPoolSupport.createBoundedObjectPool(() -> clusterClient.connectAsync(StringCodec.UTF8), BoundedPoolConfig.create());
@@ -161,16 +170,25 @@ public class ConnectPoolTest {
 
       RedisAdvancedClusterAsyncCommands<String, String> async = connection.async();
 
-      async.set("key", "value");
-      return async.set("key2", "value2").whenComplete((s, throwable) -> pool.release(connection));
+      // IntStream.range(0, 100).forEach(i -> {
+      //   async.set("key" + i, "value" + i);
+      // });
+
+      return async.set("key22222", "value22222").whenComplete(
+          (s, throwable) -> {
+            pool.release(connection);
+            // terminating
+            pool.closeAsync();
+
+            // after pool completion
+            clusterClient.shutdownAsync();
+          });
 
     });
 
-    // terminating
-    pool.closeAsync();
+    CompletableFuture.allOf(setResult);
 
-    // after pool completion
-    clusterClient.shutdownAsync();
+    System.out.println("dddd");
 
   }
 
@@ -301,7 +319,6 @@ public class ConnectPoolTest {
     while (!currentCursor.isFinished());
     System.out.println(result);*/
 
-
     // ScanIterator<String> scan = ScanIterator.scan(commands, ScanArgs.Builder.limit(50).match("ServiceGroup*"));
 
     ScanArgs scanArgs = ScanArgs.Builder.limit(50).match("ServiceGroup*");
@@ -310,7 +327,7 @@ public class ConnectPoolTest {
     while (!cursor.isFinished()) {
       scans.addAll(cursor.getKeys());
       System.out.println(scans.size());
-      cursor = commands.scan(cursor,scanArgs);
+      cursor = commands.scan(cursor, scanArgs);
     }
     System.out.println("scans count = " + scans.size());
 

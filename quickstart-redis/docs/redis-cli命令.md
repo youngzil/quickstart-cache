@@ -119,6 +119,30 @@ redis-server --maxclients 100000
 
 
 
+1.redis命令
+1 redis执行了make install后，redis的课执行文件都会自动复制到 /usr/local/bin 目录
+2 redis-server        redis服务器
+3 redis-cli            redis命令行客户端
+4 redis-benchmark        redis性能测试工具
+5 redis-check-aof        aof文件修复工具
+6 redis-check-dump    rdb文件检查工具
+
+
+2.停止 redis 命令 
+# 停止Redis命令
+redis-cli shutdown
+
+只能一个节点一个节点的停止
+http://doc.redisfans.com/server/shutdown.html
+
+
+进来不要强制杀死进程，会丢失数据
+#kill -9 10252 10257 10262 10267 10272 10294
+#也可执行以下命令来关闭redis进程
+#pkill -9 redis
+
+
+
 ---------------------------------------------------------------------------------------------------------------------
 
 Redis集群批量删除key

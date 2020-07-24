@@ -24,6 +24,7 @@ public class AsynchronousAPI {
   public void testHashAsync() throws ExecutionException, InterruptedException {
 
     // client
+    // Syntax: redis://[password@]host[:port][/databaseNumber]
     RedisClient client = RedisClient.create("redis://localhost");
 
     // connect

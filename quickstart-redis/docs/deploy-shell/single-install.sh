@@ -12,7 +12,7 @@ make && make install
 
 #创建文件夹
 cd $BASE_PATH
-mkdir -p /root/yangzl/700{0..5}
+mkdir -p /home/aifgw/redis/700{0..5}
 
 # 拷贝配置文件
 cp redis.conf 7000
@@ -37,9 +37,15 @@ redis-5.0.8/src/redis-server 7003/redis.conf
 redis-5.0.8/src/redis-server 7004/redis.conf
 redis-5.0.8/src/redis-server 7005/redis.conf
 
+#查看
+ps -ef|grep redis
 
 # --replicas 1",1是代表每一个主有一个从,后面的是所有节点的地址与端口信息
-redis-5.0.8/src/redis-cli --cluster create --cluster-replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+redis-5.0.8/src/redis-cli --cluster create --cluster-replicas 1 20.26.85.227:7000 20.26.85.227:7001 20.26.85.227:7002 20.26.85.227:7003 20.26.85.227:7004 20.26.85.227:7005
 
 #查看节点状态
-redis-5.0.8/src/redis-cli -p 7000 cluster nodes
+redis-5.0.8/src/redis-cli -c -h 20.26.85.227 -p 7000 cluster nodes
+
+#停止redis命令
+#redis-5.0.8/src/redis-cli -c -h 20.26.85.227 -p 7000 shutdown
+
