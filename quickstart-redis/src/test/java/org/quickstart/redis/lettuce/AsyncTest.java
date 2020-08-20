@@ -8,11 +8,13 @@ import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.async.RedisStringAsyncCommands;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
+import io.lettuce.core.cluster.api.async.RedisClusterAsyncCommands;
 import io.lettuce.core.codec.StringCodec;
 import io.lettuce.core.support.AsyncConnectionPoolSupport;
 import io.lettuce.core.support.AsyncPool;
 import io.lettuce.core.support.BoundedPoolConfig;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 /**
@@ -83,14 +86,23 @@ public class AsyncTest {
 
     // RedisClusterClient clusterClient = RedisClusterClient.create(RedisURI.create("20.26.85.227", 7000));
 
+    List<String> hostList = new ArrayList<>();
+    hostList.add("20.26.37.179:28001");
+    hostList.add("20.26.37.179:28002");
+    hostList.add("20.26.37.180:28003");
+    hostList.add("20.26.37.180:28004");
+    hostList.add("20.26.37.181:28005");
+    hostList.add("20.26.37.181:28006");
+
     ArrayList<RedisURI> list = new ArrayList<>();
-    list.add(RedisURI.create("redis://20.26.85.227:7000"));
-    list.add(RedisURI.create("redis://20.26.85.227:7001"));
-    list.add(RedisURI.create("redis://20.26.85.227:7002"));
-    list.add(RedisURI.create("redis://20.26.85.227:7003"));
-    list.add(RedisURI.create("redis://20.26.85.227:7004"));
-    list.add(RedisURI.create("redis://20.26.85.227:7005"));
+    hostList.forEach(host -> {
+      RedisURI redisURI = RedisURI.create("redis://" + host);
+      redisURI.setPassword("cmVkaXM=");
+      list.add(redisURI);
+    });
+
     RedisClusterClient clusterClient = RedisClusterClient.create(list);
+
     // RedisClusterClient redisClient = RedisClusterClient.create("redis://password@localhost:7379");
 
     // execute work
@@ -124,13 +136,35 @@ public class AsyncTest {
     CompletableFuture<String> setResult = pool.acquire().thenCompose(connection -> {
 
       // RedisAdvancedClusterAsyncCommands<String, String> asyncCommands = connection.async();
-      RedisStringAsyncCommands asyncCommands = connection.async();
+      RedisClusterAsyncCommands asyncCommands = connection.async();
 
-      IntStream.range(0, 100).forEach(i -> {
+      /*IntStream.range(0, 100).forEach(i -> {
         asyncCommands.set("key" + i, "value" + i);
+      });*/
+
+      Stream.iterate(0, x -> x + 1).forEach(i -> {
+        // asyncCommands.set("key" + i, "value" + i);
+        RedisFuture<String>  resutl = asyncCommands.get("key24");
+        try {
+          System.out.println("成功get:" + resutl.get());
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        } catch (ExecutionException e) {
+          e.printStackTrace();
+        }
+        try {
+          TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       });
 
+      // IntStream.range(0, 100).forEach(i -> {
+      //   asyncCommands.del("key" + i);
+      // });
+
       asyncCommands.set("keyggggg", "value22222");
+      asyncCommands.set("pluginsTemplate", "value22222");
 
       return asyncCommands.set("key22222", "value22222").whenComplete((s, throwable) -> {
         pool.release(connection);
