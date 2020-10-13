@@ -149,6 +149,7 @@ Redis集群批量删除key
 
 1、查看集群信息
 redis-cli -c -h 20.26.37.179 -p 28001 -a password
+redis-cli -c -h 10.76.227.89 -p 6202 -a cmVkaXM=
 cluster nodes
 
 2、删除keys

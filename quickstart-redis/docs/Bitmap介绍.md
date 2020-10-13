@@ -38,3 +38,6 @@ GETBIT命令原型为：
 批量字节操作主要有三个命令：BITOP，BITCOUNT，BITPOS，详细参看redis官方命令介绍https://redis.io/commands/bitop
 
 
+
+[redis的高级特性：bit位操作](https://www.toutiao.com/i6767642839267410445)
+
