@@ -1,12 +1,12 @@
-淘宝分布式NOSQL框架：Tair
-https://github.com/alibaba/tair
+Tair
+淘宝分布式NOSQL框架
+
+[Tair Github](https://github.com/alibaba/tair)  
+[Tair介绍](https://www.oschina.net/p/tair)  
+
+[Tair 分布式K-V存储方案](https://www.cnblogs.com/chenny7/p/4875396.html)
 
 
-
-https://www.cnblogs.com/chenny7/p/4875396.html
-
-
-https://www.oschina.net/p/tair
 
 Tair是由淘宝网自主开发的Key/Value结构数据存储系统，在淘宝网有着大规模的应用。您在登录淘宝、查看商品详情页面或者在淘江湖和好友“捣浆糊”的时候，都在直接或间接地和Tair交互。
 

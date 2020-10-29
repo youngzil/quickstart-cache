@@ -1,13 +1,13 @@
-https://github.com/ben-manes/caffeine
+[Caffeine Github](https://github.com/ben-manes/caffeine)
 
-1、Caffeine 的三种缓存填充策略：手动、同步加载和异步加载。
-2、Caffeine 有三个值回收策略：基于大小，基于时间和基于引用。
-3、刷新：（不同于过期）可以将缓存配置为在指定时间段后自动刷新条目。
-4、统计：Caffeine 有记录缓存使用情况的统计方式：
+- [Caffeine的三种缓存填充策略：手动、同步加载和异步加载](#Caffeine的三种缓存填充策略：手动、同步加载和异步加载)
+- [Caffeine有三个值回收策略：基于大小，基于时间和基于引用](#Caffeine有三个值回收策略：基于大小，基于时间和基于引用)
+- [刷新：可以将缓存配置为在指定时间段后自动刷新条目](#刷新：可以将缓存配置为在指定时间段后自动刷新条目) : （不同于过期）  
+- [统计：Caffeine有记录缓存使用情况的统计方式](#统计：Caffeine有记录缓存使用情况的统计方式)
 
 
 ---------------------------------------------------------------------------------------------------------------------
-1、Caffeine 的三种缓存填充策略：手动、同步加载和异步加载。
+## Caffeine的三种缓存填充策略：手动、同步加载和异步加载
 
 Caffeine Cache提供了三种缓存填充策略：手动、同步加载和异步加载。
 
@@ -24,7 +24,7 @@ AsyncLoadingCache是继承自LoadingCache类的，异步加载使用Executor去�
 
 
 
-2、Caffeine 有三个值回收策略：基于大小，基于时间和基于引用。
+## Caffeine有三个值回收策略：基于大小，基于时间和基于引用
 
 Caffeine提供了3种回收策略：基于大小回收，基于时间回收，基于引用回收。
 
@@ -59,7 +59,7 @@ Java中四种引用类型
 
 
 
-3、刷新：可以将缓存配置为在指定时间段后自动刷新条目。
+## 刷新：可以将缓存配置为在指定时间段后自动刷新条目
   这里我们要明白 expireAfter 和 refreshAfter 之间的区别：
   当请求过期条目时，执行将发生阻塞，直到 build Function 计算出新值为止。
   但是，如果条目可以刷新，则缓存将返回一个旧值，并异步重新加载该值。
@@ -68,14 +68,17 @@ Java中四种引用类型
   而refresh则是指定时间后，不会remove该key，下次访问会触发刷新，新值没有回来时返回旧值
 
 
-4、统计：Caffeine 有记录缓存使用情况的统计方式：
-     我们也可以传入 recordStats supplier，创建一个 StatsCounter 的实现。每次与统计相关的更改将推送此对象。
-     与Guava Cache的统计一样。
-     通过使用Caffeine.recordStats(), 可以转化成一个统计的集合. 通过 Cache.stats() 返回一个CacheStats。
-     CacheStats提供以下统计方法：
-         hitRate(): 返回缓存命中率
-         evictionCount(): 缓存回收数量
-         averageLoadPenalty(): 加载新值的平均时间
+
+
+## 统计：Caffeine 有记录缓存使用情况的统计方式
+
+ 我们也可以传入 recordStats supplier，创建一个 StatsCounter 的实现。每次与统计相关的更改将推送此对象。
+ 与Guava Cache的统计一样。
+ 通过使用Caffeine.recordStats(), 可以转化成一个统计的集合. 通过 Cache.stats() 返回一个CacheStats。
+ CacheStats提供以下统计方法：
+     hitRate(): 返回缓存命中率
+     evictionCount(): 缓存回收数量
+     averageLoadPenalty(): 加载新值的平均时间
 
 
 

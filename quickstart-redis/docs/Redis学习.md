@@ -1,57 +1,61 @@
+- [批量字节操作Bitmap介绍](Bitmap介绍.md)
+- [Redis为什么默认16个数据库](Redis为什么默认16个数据库.md)
+- [Redis的最常被问到知识点总结](Redis的最常被问到知识点总结.md)
+- [Redis中删除过期Key的三种策略](Redis中删除过期Key的三种策略.md)
+- [Redis事务](Redis事务.md)
+- [Redis开发建议](Redis开发建议.md)
+- [Redis快的秘诀](Redis快的秘诀.md)
+- [Redis线程模型](Redis线程模型.md)
+- [Redis集群客户端命令](Redis集群客户端命令.md)
+    - [redis-cli命令](redis-cli命令.md)
+    - Redis命令：Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
+
+- [安装Install单节点、主从、Sentinel哨兵模式](安装Install单节点、主从、Sentinel哨兵模式.md)
+- [LettuceRedis学习](LettuceRedis学习.md)
+- [redis.conf配置项说明](redis.conf配置项说明.md)
+- [redis集群部署](redis集群部署.md)
+    - Redis部署模式：单节点，单节点主从、主从带Sentinel哨兵模式、集群模式
+    - Redis集群模式搭建、扩缩容：手动 和 ruby脚本
+    - 主从带Sentinel哨兵模式:Sentinel的工作方式
+- [Redis集群搭建操作手册](Redis集群搭建操作手册.doc)
+- [Redis集群规范](Redis集群规范.md)
+- [Redis集群解决方案](#Redis集群解决方案)
+
+- [几款开源的图形化Redis客户端管理软件](几款开源的图形化Redis客户端管理软件.md)
+- [零停机Redis迁移实践](零停机Redis迁移实践.md)
+
+- [Redis的五种数据类型的实现是什么数据结构](#Redis的五种数据类型的实现是什么数据结构)
+    - Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)
+- [Redis主从复制机制](#Redis主从复制机制)
+- [Linux查看服务安装目录redis](#Linux查看服务安装目录redis)
+- [Redis存在的问题](#Redis存在的问题)
+    - 缓存雪崩、缓存穿透、缓存预热、缓存更新、缓存降级等问题
+- [深挖Redis6.0源码SDS](#深挖Redis6.0源码SDS)
+- [Redis集群模式的工作原理：Gossip协议](#Redis集群模式的工作原理：Gossip协议)
 - [Redis变慢的常见延迟问题定位与分析](#Redis变慢的常见延迟问题定位与分析)
+- [Redis服务端处理流程](#Redis服务端处理流程)
+    - Redis服务端处理流程：计算槽、槽节点查找、处理/ASK/MOVED
+    - [1.计算槽](#1.计算槽)
+    - [2.槽节点查找](#2.槽节点查找)
+    - [客户端ASK重定向流程](#客户端ASK重定向流程)
+    - [MOVED重定向](#MOVED重定向)
+- [Redis集群和zookeeper集群为什么节点数都是奇数](#Redis集群和zookeeper集群为什么节点数都是奇数)
+- [Redis中支持RDB和AOF这两种持久化机制](#Redis中支持RDB和AOF这两种持久化机制)
+- [Redis提供6种数据淘汰策略](#Redis提供6种数据淘汰策略)
+    - Redis提供6种数据淘汰策略 + 版本4.0新增2种
+- [Redis和Memcached区别](#Redis和Memcached区别)
+    -Redis和Memcached区别：支持数据类型、持久化、数据备份恢复、路由规则、网络IO模型
+- [Redis如何解决key冲突](#Redis如何解决key冲突)
+    - Redis如何解决key冲突：使用redis的不同db（集群模式部署不行），key带上业务含义
+- [如何解决Redis的并发竞争key问题](#如何解决Redis的并发竞争key问题)
+    - 如何解决Redis的并发竞争key问题：Redis事务、分布式锁
 
 
 
 
+在实际项目中Redis常被应用于做缓存，分布式锁、消息队列等。
 
 
-
-
-
-
-
-批量字节操作Bitmap
-Redis部署模式：单节点，单节点主从、主从带Sentinel哨兵模式、集群模式
-Redis集群模式搭建、扩缩容：手动 和 ruby脚本
-主从带Sentinel哨兵模式:Sentinel的工作方式
-Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
-Redis命令：Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
-
-Redis中支持RDB和AOF这两种持久化机制
-redis提供6种数据淘汰策略 + 版本4.0新增2种
-Redis服务端处理流程：计算槽、槽节点查找、处理/ASK/MOVED
-
-Redis和Memcached区别：支持数据类型、持久化、数据备份恢复、路由规则、网络IO模型
-
-
-Redis如何解决key冲突：使用redis的不同db（集群模式部署不行），key带上业务含义
-如何解决Redis的并发竞争key问题：Redis事务、分布式锁
-
-Redis集群解决方案
-
-
-Redis的最常被问到知识点总结.md
-
-Redis的五种数据类型的实现是什么数据结构
-
-Redis主从复制机制
-
-
-Redis为什么默认16个数据库.md
-
-
-redis集群和zookeeper集群为什么节点数都是奇数
-Redis 集群模式的工作原理：Gossip协议
-
-
-linux查看服务安装目录redis
-
-Redis存在的问题
-
-
-缓存雪崩、缓存穿透、缓存预热、缓存更新、缓存降级等问题
-
-深挖Redis6.0源码SDS
 
 
 
@@ -137,7 +141,8 @@ redis压力测试、调优点
 
 
 ---------------------------------------------------------------------------------------------------------------------
-Redis集群解决方案：
+
+## Redis集群解决方案
 Redis 的集群解决方案有社区的，也有官方的，社区的解决方案有 Codis 和Twemproxy,
 1、官方的集群解决方案就是 Redis Cluster，这是由 Redis 官方团队来实现的。
 2、Codis是由我国的豌豆荚团队开源的，
@@ -167,6 +172,9 @@ http://redisdoc.com/topic/cluster-spec.html
 
 
 数据类型命令：字符串，list、hashmap、set无序集合、有序集合（sorted set）、KEY 相关命令、事务 和 连接相关命令
+
+
+## Redis中支持RDB和AOF这两种持久化机制
 
 Redis中支持RDB和AOF这两种持久化机制，目的都是避免因进程退出，造成的数据丢失问题。
 RDB持久化：把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
@@ -276,32 +284,44 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 
 
 
-
-
-
-
-
-
-redis提供6种数据淘汰策略：
-
-volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
-volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
-volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
-allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
-allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
-no-enviction（驱逐）：禁止驱逐数据
+## Redis提供6种数据淘汰策略
+- volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+- volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+- volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
+- allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
+- allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
+- no-enviction（驱逐）：禁止驱逐数据
  注意这里的6种机制，volatile和allkeys规定了是对已设置过期时间的数据集淘汰数据还是从全部数据集淘汰数据，后面的lru、ttl以及random是三种不同的淘汰策略，再加上一种no-enviction永不回收的策略。
+
+
+逐一解释下各个策略
+1、volatile-lru，根据最近最少使用算法，淘汰带有 有效期 属性的key及其数据。是4.0版本之前最常选用的策略
+
+2、volatile-ttl，淘汰有效期属性最少的key及其数据，ttl是 Time To Live的缩写
+
+3、volatile-random，随机淘汰带有 有效期 属性的key及其数据
+
+4、volatile-lfu，根据最不经常使用算法，淘汰带有 有效期 属性的key及其数据。是4.0版本新增的淘汰机制，个人觉得这种策略会与第1种策略成为两种最佳的选择
+
+5、allkeys-lru，同样根据最近最少使用算法，但是淘汰范围的key是所有的key
+
+6、allkeys-random，所有key都随机淘汰
+
+7、allkeys-lfu，与第二种的淘汰范围相同，不过使用的算法是最不经常使用算法。同样是4.0版本新增的淘汰机制
+
+
+
 
 使用策略规则：
 1、如果数据呈现幂律分布，也就是一部分数据访问频率高，一部分数据访问频率低，则使用allkeys-lru
- 2、如果数据呈现平等分布，也就是所有的数据访问频率都相同，则使用allkeys-random
+2、如果数据呈现平等分布，也就是所有的数据访问频率都相同，则使用allkeys-random
 
 三种数据淘汰策略：
  ttl和random比较容易理解，实现也会比较简单。主要是Lru最近最少使用淘汰策略，设计上会对key 按失效时间排序，然后取最先失效的key进行淘汰
  
  
  
- Redis服务端处理流程：
+## Redis服务端处理流程
  
 请求重定向
 在集群模式下，Redis接收任何键相关命令时首先计算键对应的槽，再根据槽找出所对应的节点，如果节点是自身，则处理键命令；否则回复MOVED重定向错误，通知客户端请求正确的节点。这个过程称为MOVED重定向
@@ -310,13 +330,16 @@ no-enviction（驱逐）：禁止驱逐数据
  
  redis-cli自动帮我们连接到正确的节点执行命令， 这个过程是在redis-cli内部维护，实质上是client端接到MOVED信息之后再次发起请求，并不在Redis节点中完成请求转发，如图10-30所示。
  节点对于不属于它的键命令只回复重定向响应，并不负责转发。熟悉Cassandra的用户希望在这里做好区分，不要混淆。正因为集群模式下把解析发起重定向的过程放到客户端完成，所以集群客户端协议相对于单机有了很大的变化。
- 
- 
+
+
+
+
+
  键命令执行步骤主要分两步：计算槽，查找槽所对应的节点。下面分别介绍。
- 1.计算槽
+### 1.计算槽
  Redis首先需要计算键所对应的槽。根据键的有效部分使用CRC16函数计算出散列值，再取对16383的余数，使每个键都可以映射到0~16383槽范围内。
  
- 2.槽节点查找
+### 2.槽节点查找
  Redis计算得到键对应的槽后，需要查找槽所对应的节点。集群内通过消息交换每个节点都会知道所有节点的槽信息，内部保存在clusterState结构中，结构所示：
  typedef struct clusterState {
      clusterNode *myself; /* 自身节点,clusterNode代表节点结构体 */
@@ -325,7 +348,7 @@ no-enviction（驱逐）：禁止驱逐数据
  } clusterState;
  
  
- 客户端ASK重定向流程
+### 客户端ASK重定向流程
  Redis集群支持在线迁移槽（slot）和数据来完成水平伸缩，当slot对应的数据从源节点到目标节点迁移过程中，客户端需要做到智能识别，保证键命令可正常执行。例如当一个slot数据从源节点迁移到目标节点时，期间可能出现一部分数据在源节点，而另一部分在目标节点，如图10-32所示。
  当出现上述情况时，客户端键命令执行流程将发生变化，如下所示：
  1）客户端根据本地slots缓存发送命令到源节点，如果存在键对象则直接执行并返回结果给客户端。
@@ -341,7 +364,7 @@ no-enviction（驱逐）：禁止驱逐数据
 
 
 
-MOVED重定向
+### MOVED重定向
 Redis客户端可以向集群的任意一个节点发送查询请求，节点接收到请求后会对其进行解析，如果是操作单个key的命令或者是包含多个在相同槽位key的命令，那么该节点就会去查找这个key是属于哪个槽位的。
 如果key所属的槽位由该节点提供服务，那么就直接返回结果。否则就会返回一个MOVED错误：
 GET x
@@ -458,7 +481,7 @@ http://www.importnew.com/26921.html
 https://blog.csdn.net/u011489043/article/details/78922390
 https://www.biaodianfu.com/redis-vs-memcached.html
 
-Redis和Memcached区别：
+## Redis和Memcached区别
 1、支持数据类型、
 2、持久化
 3、数据备份恢复
@@ -472,8 +495,8 @@ Redis和Memcached区别：
 
 ---------------------------------------------------------------------------------------------------------------------
 
+## 如何解决Redis的并发竞争key问题
 Redis：解决分布式高并发修改同一个Key的问题
-如何解决Redis的并发竞争key问题
  
  https://www.cnblogs.com/yy3b2007com/p/9383713.html
  https://blog.csdn.net/jason1993as/article/details/86850772
@@ -501,7 +524,7 @@ List<Object> exec = tx.exec();
  http://www.xwood.net/_site_domain_/_root/5870/5874/t_c267546.html
  
 ---------------------------------------------------------------------------------------------------------------------
- redis如何解决key冲突
+## Redis如何解决key冲突
 1、业务隔离
 
 不同的业务使用不同的redis集群，或者协议使用redis的不同db。
@@ -518,7 +541,9 @@ Redis Key：bx:um:reg:mobile
  
  
  ---------------------------------------------------------------------------------------------------------------------
- Redis的五种数据类型的实现是什么数据结构
+## Redis的五种数据类型的实现是什么数据结构
+
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)
  
 Redis的五种数据结构如下：
  String：字符串。byte 数组， 可以包含任何数据
@@ -579,7 +604,7 @@ https://www.jianshu.com/p/2f4609e0ec6e
 
 
 ---------------------------------------------------------------------------------------------------------------------
-Redis主从复制机制：
+## Redis主从复制机制
 
 Redis的主从复制机制是指可以让从服务器(slave)能精确复制主服务器(master)的数据
 
@@ -609,7 +634,7 @@ https://zhuanlan.zhihu.com/p/60239657
 
 
 ---------------------------------------------------------------------------------------------------------------------
-redis集群和zookeeper集群为什么节点数都是奇数
+## Redis集群和zookeeper集群为什么节点数都是奇数
 
 
 通过redis-trib.rb可创建redis集群，然后通过--replicas后面接的数字，表示1个主节点对应几个从节点，那么我就做了如下的测试。
@@ -651,7 +676,7 @@ https://blog.csdn.net/Lemon_MY/article/details/102488714
 
 
 ---------------------------------------------------------------------------------------------------------------------
-Redis 集群模式的工作原理：Gossip协议
+## Redis集群模式的工作原理：Gossip协议
 
 Redis Cluster 是一个可以在多个 Redis 节点之间进行数据共享的分布式集群，在服务端，通过节点之间的特殊协议进行通讯，这个特殊协议就充当了中间层的管理部分的通信协议，这个协议称作Gossip流言协议。
 
@@ -691,7 +716,7 @@ https://juejin.im/post/5dd65d676fb9a05a9a22ac6f
 ---------------------------------------------------------------------------------------------------------------------
 
 
-linux查看服务安装目录redis
+## Linux查看服务安装目录redis
 
 如果用命令 which redis 或者 whereis redis 都找不到安装目录，
 
@@ -703,11 +728,10 @@ ps -aux | grep redis
 ll /proc/16678/cwd
 
 ---------------------------------------------------------------------------------------------------------------------
+## Redis存在的问题
+
 缓存雪崩、缓存穿透、缓存预热、缓存更新、缓存降级等问题
 
-
-
-Redis存在的问题
 ![Redis问题画像图](images/WechatIMG7.png "ReferencePicture")
 
 
@@ -720,7 +744,7 @@ https://www.cnblogs.com/hzcya1995/p/13290188.html
 
 
 ---------------------------------------------------------------------------------------------------------------------
-深挖Redis6.0源码SDS
+## 深挖Redis6.0源码SDS
 
 简单动态字符串（Simple Dynamic Strings，SDS）是Redis的基本数据结构之一，用于存储字符串和整型数据。
 SDS兼容C语言标准字符串处理函数，且在此基础上保证了二进制安全。

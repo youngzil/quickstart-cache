@@ -1,22 +1,20 @@
-部署模式：
-1、单节点模式
-2、单节点带有从节点模式（一主一从，一主多从， 树型主从结构（从节点还有子从节点））
-3、主从带Sentinel哨兵模式
-4、集群模式
+- [Linux 下安装](#Linux-下安装)
+- [Mac 下安装](#Mac-下安装)
+- [建立复制的配置方式有三种](#建立复制的配置方式有三种)
+- Redis部署模式
+    - 1、单节点模式
+    - 2、单节点带有从节点模式（一主一从，一主多从， 树型主从结构（从节点还有子从节点））
+    - [3、主从带Sentinel哨兵模式部署](#主从带Sentinel哨兵模式部署)
+    - 4、集群模式
 
 
-
-参考
-https://cloud.tencent.com/developer/news/8009
-http://www.cnblogs.com/yiwangzhibujian/p/7047458.html
-https://www.cnblogs.com/yu421/p/8081544.html
 
 
 
 
 Redis默认端口6379
 
-Linux 下安装
+## Linux 下安装
 下载地址：http://redis.io/download，下载最新文档版本。
 
 本教程使用的最新文档版本为 2.8.17，下载并安装：
@@ -49,7 +47,7 @@ redis> get foo
 
 
 
-Mac 下安装
+## Mac 下安装
  1. 官网http://redis.io/ 下载最新的稳定版本,这里是3.2.0
  2. sudo mv 到 /usr/local/
  3. sudo tar -zxf redis-3.2.0.tar 解压文件
@@ -65,14 +63,16 @@ redis-server
  mac 下安装也可以使用 homebrew，homebrew 是 mac 的包管理器。
 1、执行 brew install redis
 2、启动 redis，可以使用后台服务启动 brew services start redis。或者直接启动：redis-server /usr/local/etc/redis.conf
- 
- 
- 
- https://blog.csdn.net/men_wen/article/details/72590550
- 建立复制的配置方式有三种。
- 1、在redis.conf文件中配置slaveof <masterip> <masterport>选项，然后指定该配置文件启动Redis生效。
- 2、在redis-server启动命令后加上--slaveof <masterip> <masterport>启动生效。
- 3、直接使用 slaveof <masterip> <masterport>命令在从节点执行生效。
+
+
+
+
+
+## 建立复制的配置方式有三种
+[Redis 学习笔记（十二）Redis 复制功能详解](https://blog.csdn.net/men_wen/article/details/72590550)  
+- 1、在redis.conf文件中配置slaveof <masterip> <masterport>选项，然后指定该配置文件启动Redis生效。
+- 2、在redis-server启动命令后加上--slaveof <masterip> <masterport>启动生效。
+- 3、直接使用 slaveof <masterip> <masterport>命令在从节点执行生效。
  
  
  Redis的复制拓扑结构支持单层或多层复制关系，从节点还可以作为其他从节点的主节点进行复制。
@@ -88,7 +88,10 @@ redis-server
  2、扩展主节点的读能力，分担主节点读压力。
  
  
- 主从带Sentinel哨兵模式部署
+ 
+ 
+## 主从带Sentinel哨兵模式部署
+
  https://blog.csdn.net/men_wen/article/details/72724406
  https://blog.csdn.net/yan7895566/article/details/79157558
  
@@ -109,14 +112,21 @@ redis-server
  当主节点下线时长超过配置的下线时长30000秒，Redis Sentinel执行故障转移操作。
  重新选择一个节点作为主节点，断开旧主节点的连接，端口为6380的Redis数据节点成为新的主节点，端口为6379的旧主节点断开连接
  重启挂掉的旧主节点，他被降级成为新主节点的从节点。
-           
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
+Redis部署参考  
+[Redis各种模式总结](https://cloud.tencent.com/developer/news/8009)  
+[Redis学习（二） master/slave、sentinel、Cluster简单总结](https://www.cnblogs.com/yiwangzhibujian/p/7047458.html)  
+[redis几种模式的部署(Windows下实现)](https://www.cnblogs.com/yu421/p/8081544.html)  
+
+
+
+

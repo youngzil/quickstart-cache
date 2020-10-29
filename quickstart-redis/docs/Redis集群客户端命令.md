@@ -1,36 +1,67 @@
+- [Key（键）](#Key（键）)  
+- [String（字符串）](#String（字符串）)  
+- [Hash（哈希表）](#Hash（哈希表）)  
+- [List（列表）](#List（列表）)  
+- [Set（集合）](#Set（集合）)  
+- [SortedSet（有序集合）](#SortedSet（有序集合）)  
+- [Pub/Sub（发布/订阅）](#Pub/Sub（发布/订阅）)  
+- [Transaction（事务）](#Transaction（事务）)  
+
+
+
+
+- [1、Redis键(key)命令](#1、Redis键(key)命令)  
+- [2、Redis字符串(String)命令](#2、Redis字符串(String)命令)  
+- [3、Redis哈希(Hash)命令](#3、Redis哈希(Hash)命令)
+- [4、Redis列表(List)命令](#4、Redis列表(List)命令)
+- [5、Redis集合(Set)命令](#5、Redis集合(Set)命令)
+- [6、Redis有序集合(sorted set)命令](#6、Redis有序集合(sorted set)命令)
+- [7、Redis发布订阅命令](#7、Redis发布订阅命令)
+- [8、Redis事务命令](#8、Redis事务命令)
+- [9、Redis脚本命令](#9、Redis脚本命令)
+- [10、Redis连接命令](#10、Redis连接命令)
+- [11、Redis服务器命令](#11、Redis服务器命令)
+- [12、Redis地理位置(geo)命令](#12、Redis地理位置(geo)命令)
+- [13、Redis HyperLogLog命令](#13、Redis-HyperLogLog命令)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+
 Key（键）、String（字符串）、Hash（哈希表）、List（列表）、Set（集合）、SortedSet（有序集合）、Pub/Sub（发布/订阅）、Transaction（事务）
 
 
-Key（键）
+## Key（键）
 DEL、EXISTS、Expire、Keys、TTL（Pttl毫秒）、Rename、Renamenx
 
 
-String（字符串）、
+## String（字符串）
 SET、Get、Del、Setex、Setnx、Incr、Decr、Decrby、Append
 
 
-Hash（哈希表）、
+## Hash（哈希表）
 Hdel、Hget、Hgetall、Hset、Hsetnx、Hlen
 
 
-List（列表）、
+##List（列表）
 Lset、Lrem、Lindex、Lpop、Lpush、Rpop、Rpush、、Blpop、Brpop
 
 
-Set（集合）、
+## Set（集合）
 Sadd、Srem、Sscan、Spop、Smove
 
 
-SortedSet（有序集合）、
+## SortedSet（有序集合）
 Zadd、Zrem、Zscan、、
 
 
 
-Pub/Sub（发布/订阅）、
+## Pub/Sub（发布/订阅）
 Publish、Subscribe、Unsubscribe
 
 
-Transaction（事务）
+## Transaction（事务）
 Multi、Exec、Discard、
 
 
@@ -67,7 +98,7 @@ http://doc.redisfans.com/
 http://www.redis.net.cn/order/
 
 
-1、Redis 键(key) 命令
+## 1、Redis键(key)命令
 命令	描述
 Redis DEL 命令	该命令用于在 key 存在是删除 key。
 Redis Dump 命令	序列化给定 key ，并返回被序列化的值。
@@ -89,7 +120,7 @@ Redis Type 命令	返回 key 所储存的值的类型。
 
 
 
-2、Redis 字符串(String) 命令
+## 2、Redis字符串(String)命令
 命令	描述
 Redis SET 命令	设置指定 key 的值
 Redis Get 命令	获取指定 key 的值。
@@ -115,7 +146,7 @@ Redis Append 命令	如果 key 已经存在并且是一个字符串， APPEND �
 
 
 
-3、Redis 哈希(Hash) 命令
+## 3、Redis哈希(Hash)命令
 命令	描述
 Redis Hdel 命令	删除一个或多个哈希表字段
 Redis Hexists 命令	查看哈希表 key 中，指定的字段是否存在。
@@ -134,7 +165,7 @@ Redis Hvals 命令	获取哈希表中所有值
 
 
 
-4、Redis 列表(List) 命令
+## 4、Redis列表(List)命令
 命令	描述
 Redis Blpop 命令	移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
 Redis Brpop 命令	移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
@@ -157,7 +188,7 @@ Redis Rpushx 命令	为已存在的列表添加值
 
 
 
-5、Redis 集合(Set) 命令
+## 5、Redis集合(Set)命令
 命令	描述
 Redis Sadd 命令	向集合添加一个或多个成员
 Redis Scard 命令	获取集合的成员数
@@ -179,7 +210,7 @@ Redis Sscan 命令	迭代集合中的元素
 
 
 
-6、Redis 有序集合(sorted set) 命令
+## 6、Redis有序集合(sorted set)命令
 命令	描述
 Redis Zadd 命令	向有序集合添加一个或多个成员，或者更新已存在成员的分数
 Redis Zcard 命令	获取有序集合的成员数
@@ -206,7 +237,7 @@ Redis Zscan 命令	迭代有序集合中的元素（包括元素成员和元素�
 
 
 
-7、Redis 发布订阅 命令
+## 7、Redis发布订阅命令
 命令	描述
 Redis Pubsub 命令	查看订阅与发布系统状态。
 Redis Publish 命令	将信息发送到指定的频道。
@@ -220,7 +251,7 @@ Redis Punsubscribe 命令	退订所有给定模式的频道。
 
 
 
-8、Redis 事务 命令
+## 8、Redis事务命令
 命令	描述
 Redis Multi 命令	标记一个事务块的开始。
 Redis Exec 命令	执行所有事务块内的命令。
@@ -232,7 +263,7 @@ Redis Unwatch 命令	取消 WATCH 命令对所有 key 的监视。
 
 
 
-9、Redis 脚本 命令
+## 9、Redis脚本命令
 命令	描述
 Redis Eval 命令	执行 Lua 脚本。
 Redis Evalsha 命令	执行 Lua 脚本。
@@ -245,7 +276,7 @@ Redis Script Load 命令	将脚本 script 添加到脚本缓存中，但并不�
 
 
 
-10、Redis 连接 命令
+## 10、Redis连接命令
 命令	描述
 Redis Auth 命令	验证密码是否正确
 Redis Echo 命令	打印字符串
@@ -256,7 +287,7 @@ Redis Select 命令	切换到指定的数据库
 
 
 
-11、Redis 服务器 命令
+## 11、Redis服务器命令
 命令	描述
 Redis Bgrewriteaof 命令	异步执行一个 AOF（AppendOnly File） 文件重写操作
 Redis Bgsave 命令	在后台异步保存当前数据库的数据到磁盘
@@ -294,7 +325,7 @@ Redis Sync 命令	用于复制功能(replication)的内部命令
 
 
 
-12、Redis 地理位置(geo) 命令
+## 12、Redis地理位置(geo)命令
 命令	描述
 Redis GEOADD 命令	将指定的地理空间位置（纬度、经度、名称）添加到指定的key中
 Redis GEODIST 命令	返回两个给定位置之间的距离
@@ -306,7 +337,7 @@ Redis GEORADIUSBYMEMBER 命令	找出位于指定范围内的元素，中心点�
 
 
 
-13、Redis HyperLogLog 命令
+## 13、Redis HyperLogLog命令
 命令	描述
 Redis Pfadd 命令	添加指定元素到 HyperLogLog 中。
 Redis Pfcount 命令	返回给定 HyperLogLog 的基数估算值。

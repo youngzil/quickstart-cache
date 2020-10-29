@@ -1,46 +1,46 @@
-相关参考资料
-官网： https://redis.io     
-中文网：http://www.redis.cn/    
-文档：http://redisdoc.com/
-https://www.oschina.net/p/redis
+[Redis官网](https://redis.io)  
+[Redis官方文档](http://redis.io/documentation)  
+[Redis官方命令说明](https://redis.io/commands)  
+[Redis文档](https://redis.io/topics/quickstart)  
+
+[Redis github](https://github.com/redis/redis)  
+[Redis github文档](https://github.com/redis/redis-doc)  
 
 
-https://redis.io/topics/quickstart
+[Redis介绍](https://www.oschina.net/p/redis)  
+[Redis中文网](http://www.redis.cn/)  
 
-http://doc.redisfans.com/
-http://www.redis.net.cn/order/
+[Redis 命令参考](http://redisdoc.com/)  
+[Redis 命令参考](http://doc.redisfans.com/)  
+[Redis教程、命令](http://www.redis.net.cn/order/)  
 
-在线测试redis命令 http://try.redis.io/
-官方文档 http://redis.io/documentation 
-https://redis.io/commands
-Redis 支持的客户端编程语言  http://redis.io/clients
+[Redis支持的客户端编程语言](http://redis.io/clients)  
 
-Redis下载：https://redis.io/download
+[在线测试redis命令Try Redis](http://try.redis.io/)  
+
+
+Redis is an in-memory database that persists on disk. The data model is key-value, but many different kind of values are supported: Strings, Lists, Sets, Sorted Sets, Hashes, Streams, HyperLogLogs, Bitmaps.
+
+Redis是一个内存数据库，可持久存储在磁盘上。数据模型是键值，但支持许多不同类型的值：字符串，列表，集，排序集，哈希，流，HyperLogLogs，位图。
+
+
+
+[yiibai Redis指导文档](http://www.yiibai.com/redis/redis_quick_guide.html)  
+[runoob菜鸟Redis教程](http://www.runoob.com/redis/redis-tutorial.html)  
+[yiibai Redis教程](http://www.yiibai.com/redis/)  
+
+
 
 
 Redis桌面管理器，可从 http://redisdesktop.com/download 下载该软件包，安装即可
 https://redisdesktop.com/
 https://github.com/uglide/RedisDesktopManager/
 
-github：https://github.com/antirez/redis
-github文档：https://github.com/antirez/redis-doc
-
-http://www.yiibai.com/redis/redis_quick_guide.html
-
-中文网：
-http://doc.redisfans.com/
-http://www.redis.net.cn/
-http://www.redis.cn/
 
 
-Redis教程：
-http://www.runoob.com/redis/redis-tutorial.html
-http://www.yiibai.com/redis/
+[Redis 集群教程](http://www.redis.cn/topics/cluster-tutorial.html)
 
 
-Redis集群教程：
-http://www.redis.cn/topics/cluster-tutorial.html
-客户端如何选择见：http://redis.io/clients
 
 
 redis java 客户端：
