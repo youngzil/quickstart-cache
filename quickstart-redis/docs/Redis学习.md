@@ -25,7 +25,7 @@
 - [零停机Redis迁移实践](零停机Redis迁移实践.md)
 
 - [Redis的五种数据类型的实现是什么数据结构](#Redis的五种数据类型的实现是什么数据结构)
-    - Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)
+    - Redis支持五种数据类型：string（字符串，byte 数组），hash（哈希，字典，二维结构：数组+链表），list（列表，链表（双向链表）），set（集合，hash table）及zset(sorted set：有序集合，Hash+跳跃表)
 - [Redis主从复制机制](#Redis主从复制机制)
 - [Linux查看服务安装目录redis](#Linux查看服务安装目录redis)
 - [Redis存在的问题](#Redis存在的问题)
@@ -290,18 +290,18 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 - volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
 - allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
 - allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
-- no-enviction（驱逐）：禁止驱逐数据
- 注意这里的6种机制，volatile和allkeys规定了是对已设置过期时间的数据集淘汰数据还是从全部数据集淘汰数据，后面的lru、ttl以及random是三种不同的淘汰策略，再加上一种no-enviction永不回收的策略。
+- no-enviction（驱逐）：禁止驱逐数据【默认淘汰策略】
+ 注意这里的6种机制，volatile和allkeys规定了是对已设置过期时间的数据集淘汰数据还是从全部数据集淘汰数据，后面的lru、ttl以及random是三种不同的淘汰策略，再加上一种no-enviction永不回收的策略【默认淘汰策略】。
 
 
 逐一解释下各个策略
 1、volatile-lru，根据最近最少使用算法，淘汰带有 有效期 属性的key及其数据。是4.0版本之前最常选用的策略
 
-2、volatile-ttl，淘汰有效期属性最少的key及其数据，ttl是 Time To Live的缩写
+2、volatile-random，随机淘汰带有 有效期 属性的key及其数据
 
-3、volatile-random，随机淘汰带有 有效期 属性的key及其数据
+3、volatile-lfu，根据最不经常使用算法，淘汰带有 有效期 属性的key及其数据。是4.0版本新增的淘汰机制，个人觉得这种策略会与第1种策略成为两种最佳的选择
 
-4、volatile-lfu，根据最不经常使用算法，淘汰带有 有效期 属性的key及其数据。是4.0版本新增的淘汰机制，个人觉得这种策略会与第1种策略成为两种最佳的选择
+4、volatile-ttl，淘汰有效期属性最少的key及其数据，ttl是 Time To Live的缩写
 
 5、allkeys-lru，同样根据最近最少使用算法，但是淘汰范围的key是所有的key
 
@@ -309,6 +309,7 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 
 7、allkeys-lfu，与第二种的淘汰范围相同，不过使用的算法是最不经常使用算法。同样是4.0版本新增的淘汰机制
 
+8、no-enviction（驱逐）：禁止驱逐数据【默认淘汰策略】
 
 
 
@@ -318,9 +319,14 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 
 三种数据淘汰策略：
  ttl和random比较容易理解，实现也会比较简单。主要是Lru最近最少使用淘汰策略，设计上会对key 按失效时间排序，然后取最先失效的key进行淘汰
- 
- 
- 
+
+
+
+参考  
+[redis中maxmemory和淘汰策略](https://www.jianshu.com/p/ca7e15348323)  
+[彻底弄懂Redis的内存淘汰策略](https://zhuanlan.zhihu.com/p/105587132)  
+
+
 ## Redis服务端处理流程
  
 请求重定向
@@ -354,12 +360,12 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
  1）客户端根据本地slots缓存发送命令到源节点，如果存在键对象则直接执行并返回结果给客户端。
  2）如果键对象不存在，则可能存在于目标节点，这时源节点会回复ASK重定向异常。格式如下：（error）ASK{slot}{targetIP}： {targetPort}。
  3）客户端从ASK重定向异常提取出目标节点信息，发送asking命令到目标节点打开客户端连接标识，再执行键命令。如果存在则执行，不存在则返回不存在信息。
- 
- 
- ASK与MOVED虽然都是对客户端的重定向控制，但是有着本质区别。
- ASK重定向说明集群正在进行slot数据迁移，客户端无法知道什么时候迁移完成，因此只能是临时性的重定向，客户端不会更新slots缓存。
- 但是MOVED重定向说明键对应的槽已经明确指定到新的节点，因此需要更新slots缓存。
- 
+
+
+ASK与MOVED虽然都是对客户端的重定向控制，但是有着本质区别。
+ASK重定向说明集群正在进行slot数据迁移，客户端无法知道什么时候迁移完成，因此只能是临时性的重定向，客户端不会更新slots缓存。
+但是MOVED重定向说明键对应的槽已经明确指定到新的节点，因此需要更新slots缓存。
+
 
 
 
@@ -514,7 +520,7 @@ List<Object> exec = tx.exec();
  
  
  2、分布式锁的实现方式：
- 数据库
+    数据库
     Memcached（add命令）
     Redis（setnx命令）
     Zookeeper（临时节点）
@@ -543,7 +549,7 @@ Redis Key：bx:um:reg:mobile
  ---------------------------------------------------------------------------------------------------------------------
 ## Redis的五种数据类型的实现是什么数据结构
 
-Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)
+Redis支持五种数据类型：string（字符串，byte 数组），hash（哈希，字典，二维结构：数组+链表），list（列表，链表（双向链表）），set（集合，hash table）及zset(sorted set：有序集合，Hash+跳跃表)
  
 Redis的五种数据结构如下：
  String：字符串。byte 数组， 可以包含任何数据
@@ -711,7 +717,8 @@ https://cloud.tencent.com/developer/article/1444057
 https://zhuanlan.zhihu.com/p/72629038
 https://juejin.im/post/5dd65d676fb9a05a9a22ac6f
 
-
+https://juejin.im/post/6844904002098823181  
+https://developer.aliyun.com/article/768536  
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -783,13 +790,6 @@ SDS在涉及字符串修改处会调用sdsMakeroomFor函数进行检查，根据
 参考
 https://developer.aliyun.com/article/723377
 https://github.com/doocs/source-code-hunter/blob/master/docs/Redis/redis-sds.md
-
-
-
-
-
-
-
 
 
 ---------------------------------------------------------------------------------------------------------------------

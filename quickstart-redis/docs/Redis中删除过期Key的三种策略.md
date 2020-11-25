@@ -47,11 +47,12 @@ allkeys-lru ： 删除lru算法的key，根据LRU算法删除任何key。
 volatile-random：随机删除即将过期key，根据过期设置来随机删除key。
 allkeys-random：随机删除，无差别随机删。
 volatile-ttl ： 删除即将过期的，根据最近过期时间来删除（辅以TTL）
-noeviction ： 永不过期，返回错误，谁也不删，直接在写操作时返回错误。
+noeviction ： 永不过期，返回错误，谁也不删，直接在写操作时返回错误。【默认淘汰策略】
 
 当mem_used内存已经超过maxmemory的设定，对于所有的读写请求，都会触发redis.c/freeMemoryIfNeeded(void)函数以清理超出的内存。注意这个清理过程是阻塞的，直到清理出足够的内存空间。所以如果在达到maxmemory并且调用方还在不断写入的情况下，可能会反复触发主动清理策略，导致请求会有一定的延迟。
 
 清理时会根据用户配置的maxmemory-policy来做适当的清理（一般是LRU或TTL），这里的LRU或TTL策略并不是针对redis的所有key，而是以配置文件中的maxmemory-samples个key作为样本池进行抽样清理。
+
 
 
 

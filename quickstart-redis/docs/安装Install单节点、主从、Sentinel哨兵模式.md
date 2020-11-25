@@ -1,5 +1,5 @@
-- [Linux 下安装](#Linux-下安装)
-- [Mac 下安装](#Mac-下安装)
+- [Linux下安装](#Linux下安装)
+- [Mac下安装](#Mac下安装)
 - [建立复制的配置方式有三种](#建立复制的配置方式有三种)
 - Redis部署模式
     - 1、单节点模式
@@ -14,7 +14,7 @@
 
 Redis默认端口6379
 
-## Linux 下安装
+## Linux下安装
 下载地址：http://redis.io/download，下载最新文档版本。
 
 本教程使用的最新文档版本为 2.8.17，下载并安装：
@@ -47,7 +47,7 @@ redis> get foo
 
 
 
-## Mac 下安装
+## Mac下安装
  1. 官网http://redis.io/ 下载最新的稳定版本,这里是3.2.0
  2. sudo mv 到 /usr/local/
  3. sudo tar -zxf redis-3.2.0.tar 解压文件

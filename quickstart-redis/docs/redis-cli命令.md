@@ -35,6 +35,7 @@ redis-cli -c -h 10.76.224.228 -p 6201 -a cmVkaXM=
 redis-cli -c -h 10.76.224.229 -p 6202 -a cmVkaXM=
 redis-cli -c -h 10.76.224.231 -p 6203 -a cmVkaXM=
 
+redis-cli -c -h 10.70.62.164 -p 6201 -a cmVkaXM=
 
 
 
