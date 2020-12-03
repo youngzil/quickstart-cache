@@ -42,7 +42,7 @@ redis-6.0.6/src/redis-server 7005/redis.conf
 #查看
 ps -ef|grep redis
 
-# --replicas 1",1是代表每一个主有一个从,后面的是所有节点的地址与端口信息
+#--replicas1",1是代表每一个主有一个从,后面的是所有节点的地址与端口信息
 redis-6.0.6/src/redis-cli --cluster create --cluster-replicas 1 20.26.85.227:7000 20.26.85.227:7001 20.26.85.227:7002 20.26.85.227:7003 20.26.85.227:7004 20.26.85.227:7005
 
 #查看节点状态

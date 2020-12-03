@@ -13,7 +13,7 @@
 - [安装Install单节点、主从、Sentinel哨兵模式](安装Install单节点、主从、Sentinel哨兵模式.md)
 - [LettuceRedis学习](LettuceRedis学习.md)
 - [redis.conf配置项说明](redis.conf配置项说明.md)
-- [redis集群部署](redis集群部署.md)
+- [redis集群部署](Redis集群部署.md)
     - Redis部署模式：单节点，单节点主从、主从带Sentinel哨兵模式、集群模式
     - Redis集群模式搭建、扩缩容：手动 和 ruby脚本
     - 主从带Sentinel哨兵模式:Sentinel的工作方式
@@ -177,8 +177,8 @@ http://redisdoc.com/topic/cluster-spec.html
 ## Redis中支持RDB和AOF这两种持久化机制
 
 Redis中支持RDB和AOF这两种持久化机制，目的都是避免因进程退出，造成的数据丢失问题。
-RDB持久化：把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
-AOF持久化：以独立日志的方式记录每次写命令，重启时在重新执行AOF文件中的命令达到恢复数据的目的。
+1. RDB持久化：把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
+2. AOF持久化：以独立日志的方式记录每次写命令，重启时在重新执行AOF文件中的命令达到恢复数据的目的。
 
 
 RDB持久化是把当前进程数据生成时间点快照（point-in-time snapshot）保存到硬盘的过程，避免数据意外丢失。
@@ -211,8 +211,8 @@ AOF_FSYNC_EVERYSEC	命令写入aof_buf后调用系统write操作，write完成�
 AOF_FSYNC_NO	命令写入aof_buf后调用系统write操作，不对AOF文件做fsync同步，同步硬盘由操作由操作系统负责
 
 我们来了解一下，write和fsync操作，在系统中都做了哪些事：
-1、write操作：会触发延迟写（delayed write）机制。Linux在内核提供页缓冲区用来提高IO性能，因此，write操作在将数据写入操作系统的缓冲区后就直接返回，而不一定触发同步到磁盘的操作。只有在页空间写满，或者达到特定的时间周期，才会同步到磁盘。因此单纯的write操作也是有数据丢失的风险。
-2、fsync操作：针对单个文件操作，做强制硬盘同步，fsync将阻塞直到写入硬盘完成后返回。
+1. write操作：会触发延迟写（delayed write）机制。Linux在内核提供页缓冲区用来提高IO性能，因此，write操作在将数据写入操作系统的缓冲区后就直接返回，而不一定触发同步到磁盘的操作。只有在页空间写满，或者达到特定的时间周期，才会同步到磁盘。因此单纯的write操作也是有数据丢失的风险。
+2. fsync操作：针对单个文件操作，做强制硬盘同步，fsync将阻塞直到写入硬盘完成后返回。
 
 
 重写机制：当一个数据库的命令非常多时，AOF文件就会非常大，为了解决这个问题，Redis引入了AOF重写机制来压缩文件的体积。
@@ -284,7 +284,7 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 
 
 
-## Redis提供6种数据淘汰策略
+## Redis提供6+2种数据淘汰策略
 - volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
 - volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
 - volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
@@ -363,8 +363,8 @@ Redis Sentinel是一个分布式架构，包含若干个Sentinel节点和Redis�
 
 
 ASK与MOVED虽然都是对客户端的重定向控制，但是有着本质区别。
-ASK重定向说明集群正在进行slot数据迁移，客户端无法知道什么时候迁移完成，因此只能是临时性的重定向，客户端不会更新slots缓存。
-但是MOVED重定向说明键对应的槽已经明确指定到新的节点，因此需要更新slots缓存。
+- ASK重定向说明集群正在进行slot数据迁移，客户端无法知道什么时候迁移完成，因此只能是临时性的重定向，客户端不会更新slots缓存。
+- 但是MOVED重定向说明键对应的槽已经明确指定到新的节点，因此需要更新slots缓存。
 
 
 
@@ -616,8 +616,8 @@ Redis的主从复制机制是指可以让从服务器(slave)能精确复制主�
 
 主从复制的方式和工作原理
 Redis的主从复制是异步复制，异步分为两个方面，
-一个是master服务器在将数据同步到slave时是异步的，因此master服务器在这里仍然可以接收其他请求，
-一个是slave在接收同步数据也是异步的。
+1. 一个是master服务器在将数据同步到slave时是异步的，因此master服务器在这里仍然可以接收其他请求，
+2. 一个是slave在接收同步数据也是异步的。
 
 
 复制方式

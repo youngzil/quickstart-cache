@@ -33,16 +33,16 @@ redis-6.0.6/src/redis-cli -p 7000 cluster nodes
 #'操作集群管理节点从新分配，并在交互界面指定分片大小、选择接收分片的节点ID
 redis-6.0.6/src/redis-cli --cluster reshard 127.0.0.1:7000
 
-#How many slots do you want to move (from 1 to 16384)? 4096
+#How many slots do you want to move (from 1 to 16384)?4096
 #通过人工手动计算数据分片总大小除以主节点后的数字
 
-#What is the receiving node ID? 2129d28f0a86fc89571e49a59a0739812cff7953
+#What is the receiving node ID?2129d28f0a86fc89571e49a59a0739812cff7953
 #选择接收数据分片的节点ID，（这是新增节点7006实例的ID号）
 
-#Source node #1: all
+#Source node #1: all
 #选择从哪些源主节点重新分片给新主节点）（all是所有节点）
 
-#Do you want to proceed with the proposed reshard plan (yes/no)? yes           
+#Do you want to proceed with the proposed reshard plan (yes/no)?yes
 #确认修改以上的操作
 
 #重新查看主节点状态：（可以看到集群数据的重新分片）

@@ -7,6 +7,9 @@ Redis集群要求至少3个主节点3个从节点，共计6个节点。
 ---------------------------------------------------------------------------------------------------------------------
 
 ## 安装Redis依赖包
+
+安装Redis6.X需要升级gcc
+
 安装gcc套装
 yum install -y cpp binutils glibc glibc-kernheaders glibc-common glibc-devel gcc make
 
