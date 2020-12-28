@@ -20,7 +20,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <ehcache.version>3.8.1</ehcache.version>
+    <ehcache.version>3.9.0</ehcache.version>
     <jcache.version>1.0.0</jcache.version>
     <jcache.version>1.1.1</jcache.version>
     <shiro.version>1.5.3</shiro.version>

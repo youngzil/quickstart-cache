@@ -11,6 +11,8 @@
 - [与集合Set相关的一些基本命令](#与集合Set相关的一些基本命令)  
 - [Redis集群客户端命令](Redis集群客户端命令.md)  
 
+- [Redis运维常用命令](#Redis运维常用命令)
+
 
 ---------------------------------------------------------------------------------------------------------------------
 ## Redis启动、连接命令
@@ -374,9 +376,27 @@ flushall
 
 
 ---------------------------------------------------------------------------------------------------------------------
+## Redis运维常用命令
+
+1. info命令(可以查看Redis 服务器的各种信息和统计数值)
+2. config get xxx(可以查看redis配置属性值)
+3. client list(实时查看已经建立的连接)
+4. client kill IP:PORT（杀掉某个连接）
+5. slowlog get N 获取慢日志（查看redis慢查询）
+6. dbsize  // 当前数据库的key的数量
 
 
 
+参考  
+[Redis运维常用命令](https://www.cnblogs.com/yjb007/p/9647567.html)  
+[redis运维常用命令](http://www.peter-zhou.com/fu-wu-bu-shu/redis/13redisyun-wei-chang-yong-ming-ling.html)  
+[记录一下redis常用运维命令](https://www.jianshu.com/p/1f3b86f46e03)  
+[redis运维命令及参数整理](https://blog.51cto.com/dba10g/1846068)  
+[Redis运维手册](https://help.fanruan.com/finereport/doc-view-2951.html)  
+[redis运维常用命令](https://blog.csdn.net/zdp072/article/details/50985328)  
+
+
+---------------------------------------------------------------------------------------------------------------------
 
 
 

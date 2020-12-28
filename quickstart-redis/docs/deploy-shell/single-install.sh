@@ -54,3 +54,4 @@ redis-6.0.6/src/redis-cli -c -h 20.26.85.227 -p 7000 cluster nodes
 #停止redis命令
 #redis-6.0.6/src/redis-cli -c -h 20.26.85.227 -p 7000 shutdown
 
+src/redis-cli -h  65.49.200.152
