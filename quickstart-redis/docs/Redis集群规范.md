@@ -2,6 +2,38 @@
 - [Redis哨兵模式选举机制](#Redis哨兵模式选举机制)
 - [Redis集群选举原理](#Redis集群选举原理)
 - [集群选举原理分析](#集群选举原理分析)
+- [Redis集群方案对比](#Redis集群方案对比)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+## Redis集群方案对比
+
+
+Redis的主要集群方案可以分为：
+
+客户端分片
+
+基于代理的分片（Twemproxy, codis）
+
+路由查询（Redis Cluster-官方实现）
+
+
+
+Redis的几种使用方式包括：
+- Redis 单副本
+- Redis 多副本(主从)
+- Redis Sentinel(哨兵)
+- Redis Cluster
+- Redis 自研
+
+
+
+参考  
+[Redis集群最全方案对比【包括高可用等】](https://blog.csdn.net/fenglei0415/article/details/83757634)  
+[Redis集群方案比较](https://my.oschina.net/xiaominmin/blog/1618740)  
+
 
 
 
