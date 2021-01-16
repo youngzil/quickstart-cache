@@ -19,6 +19,7 @@ vim redis/conf/redis.conf
 启动Docker Redis镜像
 # -p 主机端口：容器端口      -v 主机目录：容器目录
 
+# 公网记得设置密码和修改端口为不常用端口
 docker run -d --privileged=true -p 6379:6379 -v /root/redis/conf/redis.conf:/etc/redis/redis.conf -v /root/redis/data:/data --name redis redis:latest redis-server /etc/redis/redis.conf --appendonly yes
 
 
