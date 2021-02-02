@@ -11,7 +11,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.junit.Test;
-import sun.jvm.hotspot.HelloWorld;
 
 /**
  * @author youngzil@163.com

@@ -1,4 +1,4 @@
-package org.quickstart.redis.redisson;
+package org.quickstart.redis.redisson.v3x;
 
 import java.util.concurrent.TimeUnit;
 import org.redisson.Redisson;

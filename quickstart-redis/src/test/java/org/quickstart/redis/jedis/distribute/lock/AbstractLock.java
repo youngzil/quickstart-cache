@@ -1,4 +1,4 @@
-package org.quickstart.redis.jedis.example.distribute.lock;
+package org.quickstart.redis.jedis.distribute.lock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

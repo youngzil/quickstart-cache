@@ -148,7 +148,6 @@ public class LiveObjectServiceExamples {
     }
 
     @REntity
-
     public static class Customer {
 
         @RId(generator = UUIDGenerator.class)

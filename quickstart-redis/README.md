@@ -42,13 +42,17 @@ https://github.com/uglide/RedisDesktopManager/
 
 
 
+Redis Java客户端：
 
-redis java 客户端：
-https://github.com/xetorthio/jedis
-https://github.com/redisson/redisson
-https://github.com/caoxinyu/RedisClient
-https://github.com/alphazero/jredis
-https://github.com/lettuce-io/lettuce-core
+1. [Redisson](https://github.com/redisson/redisson)  
+   [redisson-examples](https://github.com/redisson/redisson-examples)  
+   [spring-boot-starter-redisson](https://github.com/linux-china/spring-boot-starter-redisson)  
+2. [jedis](https://github.com/xetorthio/jedis)  
+3. [lettuce](https://github.com/lettuce-io/lettuce-core)
+4. [RedisClient](https://github.com/caoxinyu/RedisClient)
+5. [jredis](https://github.com/alphazero/jredis)
+
+
 
 
 参考网站
@@ -56,9 +60,9 @@ https://www.baeldung.com/java-redis-lettuce
 https://github.com/lettuce-io/lettuce-core/wiki
 
 
-
+[RedisShake](https://github.com/alibaba/RedisShake)  
 Redis-shake是一个用于在两个redis之间同步数据的工具，满足用户非常灵活的同步、迁移需求。
-https://github.com/alibaba/RedisShake
+
 
 
 
@@ -67,6 +71,19 @@ https://github.com/alibaba/RedisShake
 https://cachecloud.github.io/
 搜狐视频(sohu tv)Redis私有云平台 http://cachecloud.github.io/
 https://github.com/sohutv/cachecloud
+
+
+
+
+https://redislabs.com/redisconf/
+
+https://blog.csdn.net/middleware2018/category_9368487.html
+
+Redis 的 KEYS 命令不能乱用啊
+https://blog.csdn.net/qq_39669058/article/details/107647688
+
+
+
 
 
 

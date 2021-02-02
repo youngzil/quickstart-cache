@@ -196,13 +196,6 @@ public class ConnectPoolTest {
   public void testAsyncClusterUsage2() throws Exception {
 
     List<RedisURI> list = new ArrayList<>();
-    /*list.add(RedisURI.create("redis://20.26.37.179:28001"));
-    list.add(RedisURI.create("redis://20.26.37.179:28002"));
-    list.add(RedisURI.create("redis://20.26.37.180:28003"));
-    list.add(RedisURI.create("redis://20.26.37.180:28004"));
-    list.add(RedisURI.create("redis://20.26.37.181:28005"));
-    list.add(RedisURI.create("redis://20.26.37.181:28006"));*/
-
     list.add(RedisURI.create("redis://10.1.243.23:7000"));
     list.add(RedisURI.create("redis://10.1.243.23:7001"));
     list.add(RedisURI.create("redis://10.1.243.23:7002"));

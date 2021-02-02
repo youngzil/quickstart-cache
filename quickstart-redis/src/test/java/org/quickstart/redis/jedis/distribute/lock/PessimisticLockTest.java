@@ -1,31 +1,15 @@
-/**
- * 项目名称：quickstart-redis 
- * 文件名：OptimisticLockTest.java
- * 版本信息：
- * 日期：2018年10月31日
- * Copyright yangzl Corporation 2018
- * 版权所有 *
- */
-package org.quickstart.redis.jedis.example.distribute.lock;
+package org.quickstart.redis.jedis.distribute.lock;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Transaction;
 
-/**
- * OptimisticLockTest redis乐观锁实例 分布式锁
- * 
- * @author：youngzil@163.com
- * @2018年10月31日 下午4:44:29
- * @since 1.0
- */
-public class OptimisticLockTest {
+public class PessimisticLockTest {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         long starTime = System.currentTimeMillis();
 
         initPrduct();
@@ -35,7 +19,6 @@ public class OptimisticLockTest {
         long endTime = System.currentTimeMillis();
         long Time = endTime - starTime;
         System.out.println("程序运行时间： " + Time + "ms");
-
     }
 
     /**
@@ -60,7 +43,7 @@ public class OptimisticLockTest {
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         int clientNum = 10000;// 模拟客户数目
         for (int i = 0; i < clientNum; i++) {
-            cachedThreadPool.execute(new ClientThread(i));
+            cachedThreadPool.execute(new PessClientThread(i));
         }
         cachedThreadPool.shutdown();
 
@@ -107,14 +90,21 @@ public class OptimisticLockTest {
  * @author linbingwen
  *
  */
-class ClientThread implements Runnable {
-    Jedis jedis = null;
+class PessClientThread implements Runnable {
     String key = "prdNum";// 商品主键
-    String clientList = "clientList";//// 抢购到商品的顾客列表主键
+    String clientList = "clientList";// // 抢购到商品的顾客列表主键
     String clientName;
+    RedisBasedDistributedLock redisBasedDistributedLock;
+    Jedis jedis = null;
 
-    public ClientThread(int num) {
+    public PessClientThread(int num) {
         clientName = "编号=" + num;
+        init();
+    }
+
+    public void init() {
+        jedis = RedisUtil.getInstance().getJedis();
+        redisBasedDistributedLock = new RedisBasedDistributedLock(jedis, "lock.lock", 5 * 1000);
     }
 
     public void run() {
@@ -122,35 +112,31 @@ class ClientThread implements Runnable {
             Thread.sleep((int) (Math.random() * 5000));// 随机睡眠一下
         } catch (InterruptedException e1) {
         }
+
         while (true) {
-            System.out.println("顾客:" + clientName + "开始抢商品");
-            jedis = RedisUtil.getInstance().getJedis();
-            try {
-                jedis.watch(key);
-                int prdNum = Integer.parseInt(jedis.get(key));// 当前商品个数
-                if (prdNum > 0) {
-                    Transaction transaction = jedis.multi();
-                    transaction.set(key, String.valueOf(prdNum - 1));
-                    List<Object> result = transaction.exec();
-                    if (result == null || result.isEmpty()) {
-                        System.out.println("悲剧了，顾客:" + clientName + "没有抢到商品");// 可能是watch-key被外部修改，或者是数据操作被驳回
-                    } else {
-                        jedis.sadd(clientList, clientName);// 抢到商品记录一下
-                        System.out.println("好高兴，顾客:" + clientName + "抢到商品");
-                        break;
-                    }
-                } else {
-                    System.out.println("悲剧了，库存为0，顾客:" + clientName + "没有抢到商品");
-                    break;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                jedis.unwatch();
-                RedisUtil.returnResource(jedis);
+            // 先判断缓存是否有商品
+            if (Integer.valueOf(jedis.get(key)) <= 0) {
+                break;
             }
 
+            // 缓存还有商品，取锁，商品数目减去1
+            System.out.println("顾客:" + clientName + "开始抢商品");
+            if (redisBasedDistributedLock.tryLock(3, TimeUnit.SECONDS)) { // 等待3秒获取锁，否则返回false
+                int prdNum = Integer.valueOf(jedis.get(key)); // 再次取得商品缓存数目
+                if (prdNum > 0) {
+                    jedis.decr(key);// 商品数减1
+                    jedis.sadd(clientList, clientName);// 抢到商品记录一下
+                    System.out.println("好高兴，顾客:" + clientName + "抢到商品");
+                } else {
+                    System.out.println("悲剧了，库存为0，顾客:" + clientName + "没有抢到商品");
+                }
+                redisBasedDistributedLock.unlock();
+                break;
+            }
         }
+        // 释放资源
+        redisBasedDistributedLock = null;
+        RedisUtil.returnResource(jedis);
     }
 
 }

@@ -53,4 +53,11 @@ public class TestTraversalKeys {
 
     }
 
+    public void testCluster(){
+        Config config = new Config();
+        config.useClusterServers().addNodeAddress("127.0.0.1:7001", "127.0.0.1:7002", "127.0.0.1:7003");
+
+        RedissonClient redisson = Redisson.create(config);
+    }
+
 }
