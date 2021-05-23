@@ -23,7 +23,7 @@
     <ehcache.version>3.9.0</ehcache.version>
     <jcache.version>1.0.0</jcache.version>
     <jcache.version>1.1.1</jcache.version>
-    <shiro.version>1.5.3</shiro.version>
+    <shiro.version>1.6.0</shiro.version>
   </properties>
 
   <dependencies>
