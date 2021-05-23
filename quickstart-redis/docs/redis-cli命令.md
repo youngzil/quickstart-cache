@@ -33,6 +33,9 @@ zset(sorted set：有序集合)。
 redis-cli -c -h 10.76.224.229 -p 6202 -a 密码
 redis-cli -c -h 10.1.243.23 -p 7000
 redis-cli -c -h 20.26.85.233 -p 6379
+redis-cli -c -h 10.1.128.35 -p 6383
+
+
 
 
 redis-cli -c -h 10.76.224.228 -p 6201 -a cmVkaXM=
@@ -412,7 +415,6 @@ redis-cli -c -h 172.16.48.179 -p 7000
 
 这个可以查询整个集群的
 redis-cli -c --cluster call 172.16.48.179:7000 keys "*lengfeng.test3*"
-
 
 
 

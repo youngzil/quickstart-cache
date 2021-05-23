@@ -17,7 +17,7 @@
 
   <properties>
     <redisson.version>2.15.2</redisson.version>
-    <redisson.version>3.15.0</redisson.version>
+    <redisson.version>3.15.1</redisson.version>
     <jedis.version>3.5.1</jedis.version>
   </properties>
 

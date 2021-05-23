@@ -24,7 +24,8 @@ public class AsynchronousAPI {
 
     // client
     // Syntax: redis://[password@]host[:port][/databaseNumber]
-    RedisClient client = RedisClient.create("redis://localhost");
+//    RedisClient client = RedisClient.create("redis://localhost");
+    RedisClient client = RedisClient.create("redis://172.16.48.179:7000");
 
     // connect
     StatefulRedisConnection<String, String> connection = client.connect();
@@ -38,7 +39,7 @@ public class AsynchronousAPI {
     map.put("test2","test2");
     map.put("test3","test3");
     RedisFuture<String> future = hashAsyncCommands.hmset("map",map);
-    RedisFuture<Map<String,String>> ff = hashAsyncCommands.hgetall("map");
+    RedisFuture<Map<String,String>> ff = hashAsyncCommands.hgetall("middleware:cache:hermes:test:hermes-center:EndPoints:test:hermes-proxy");
     System.out.println(ff.get());
 
     Map<String,String> map2 = new HashMap<>();

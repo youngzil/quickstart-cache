@@ -1,0 +1,95 @@
+#docker-compose -f docker-compose-cluster.yml up -d
+
+#这里yml中的master/follower没有实际意义,具体的主从分配是redis决定的.
+
+version: '3'
+
+services:
+  master1:
+    image: redis
+    container_name: redis-cluster1-master
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/master:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/master:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/master:/log
+    ports:
+      - 6379:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.80
+
+  follow1:
+    image: redis
+    container_name: redis-cluster1-follower
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/follower:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/follower:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster1/follower:/log
+    ports:
+      - 6380:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.81
+
+  master2:
+    image: redis
+    container_name: redis-cluster2-master
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/master:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/master:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/master:/log
+    ports:
+      - 6381:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.82
+
+  follow2:
+    image: redis
+    container_name: redis-cluster2-follower
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/follower:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/follower:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster2/follower:/log
+    ports:
+      - 6382:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.83
+
+  master3:
+    image: redis
+    container_name: redis-cluster3-master
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/master:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/master:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/master:/log
+    ports:
+      - 6383:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.84
+
+  follow3:
+    image: redis
+    container_name: redis-cluster3-follower
+    command: /bin/bash -c "redis-server /etc/redis/redis.conf"
+    volumes:
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/follower:/etc/redis
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/follower:/data
+      - /usr/local/etc/docker-compose/redis-cluster/cluster3/follower:/log
+    ports:
+      - 6384:6379
+    networks:
+      redisNet:
+        ipv4_address: 192.168.88.85
+
+networks:
+  redisNet:
+    external: true
+

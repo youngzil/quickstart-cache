@@ -26,7 +26,7 @@ import redis.clients.jedis.JedisShardInfo;
  * @2017年3月14日 上午9:59:05
  * @version 1.0
  */
-public class TestRedis {
+public class JredisTest {
 
     private Jedis jedis;
 
@@ -318,6 +318,11 @@ public class TestRedis {
         System.out.println(shardedJedis.hkeys("hashs"));
         // 获取所有的values
         System.out.println(shardedJedis.hvals("hashs"));
+    }
+
+    @Test
+    public void testSlowLogs() {
+        shardedJedis.slowlogGet();
     }
 
 }

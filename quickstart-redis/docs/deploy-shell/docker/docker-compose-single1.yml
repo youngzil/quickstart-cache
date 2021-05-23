@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    #启动命令 redis-server 后面可以跟读取配置文件的路径(默认配置文件:/usr/local/etc/redis/redis.conf)
+    #也可在宿主机定义配置文件 映射容器内部指定位置 然后启动时指定 配置文件路径
+    #单机版 不做改动
+    #redis-server /usr/local/etc/redis/redis.conf
+    command: redis-server --requirepass zx678603 --appendonly yes
+    ports:
+      - 6379:6379
+#    volumes:
+#      - ./data:/data
