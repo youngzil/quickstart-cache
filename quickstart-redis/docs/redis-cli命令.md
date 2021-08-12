@@ -56,6 +56,9 @@ redis-cli --raw  防止中文乱码
 
 PING
 
+查看服务端信息和版本
+info
+
 
 redis-cli -c -h 20.26.37.179 -p 28001
 

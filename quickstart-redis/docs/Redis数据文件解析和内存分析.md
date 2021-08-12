@@ -4,9 +4,13 @@
 
 ## Redis AOF文件格式解析
 
-[解析Redis持久化的AOF文件](https://www.alibabacloud.com/help/zh/doc-detail/99345.htm)  
 [REdis AOF文件结构分析](https://blog.csdn.net/Aquester/article/details/88550655)  
+[解析Redis持久化的AOF文件](https://www.alibabacloud.com/help/zh/doc-detail/99345.htm)  
 [如何解析Redis AOF文件？](https://cloud.tencent.com/developer/ask/210196)  
+
+
+[EOL or End of Line or newline ascii character](https://www.loginradius.com/blog/async/eol-end-of-line-or-newline-characters/)  
+Learn what are EOL (End of Line) or LF (Line Feed) or NL (New Line) ascii characters (\n\r) and why there are two (\n\r) newline characters.
 
 
 

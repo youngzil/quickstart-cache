@@ -5,7 +5,6 @@
     <groupId>org.quickstart</groupId>
     <artifactId>quickstart-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>..</relativePath> <!-- lookup parent from repository -->
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -24,34 +23,29 @@
     <dependency>
       <groupId>com.alicp.jetcache</groupId>
       <artifactId>jetcache-anno</artifactId>
-      <version>${jetcache.version}</version>
     </dependency>
     <dependency>
       <groupId>com.alicp.jetcache</groupId>
       <artifactId>jetcache-redis</artifactId>
-      <version>${jetcache.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
-      <version>2.8.6</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.30</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.30</version>
+      <version>${slf4j.version}</version>
     </dependency>
 
   </dependencies>

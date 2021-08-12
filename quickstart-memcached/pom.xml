@@ -1,99 +1,98 @@
 <?xml version="1.0"?>
 <project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <parent>
-    <groupId>org.quickstart</groupId>
-    <artifactId>quickstart-cache</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>..</relativePath> <!-- lookup parent from repository -->
-  </parent>
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <parent>
+        <groupId>org.quickstart</groupId>
+        <artifactId>quickstart-cache</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>quickstart-memcached</artifactId>
-  <packaging>jar</packaging>
-  <name>${project.artifactId}-${project.version}</name>
-  <url>http://maven.apache.org</url>
-  <description>Demo project for XXX</description>
-
-
-  <properties>
-  </properties>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>com.whalin</groupId>
-      <artifactId>Memcached-Java-Client</artifactId>
-      <version>3.0.2</version>
-    </dependency>
-
-    <!--		<dependency>-->
-    <!--			<groupId>net.spy</groupId>-->
-    <!--			<artifactId>spymemcached</artifactId>-->
-    <!--			<version>2.12.1</version>-->
-    <!--		</dependency>-->
-
-    <dependency>
-      <groupId>net.spy</groupId>
-      <artifactId>spymemcached</artifactId>
-      <version>2.12.3</version>
-    </dependency>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>quickstart-memcached</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}-${project.version}</name>
+    <url>http://maven.apache.org</url>
+    <description>Demo project for XXX</description>
 
 
-    <dependency>
-      <groupId>com.googlecode.xmemcached</groupId>
-      <artifactId>xmemcached</artifactId>
-      <version>2.4.6</version>
-    </dependency>
+    <properties>
+    </properties>
 
-    <!-- Memcached-Java-Client-2.x版本，在lib文件夹中，依赖的jar -->
-    <dependency>
-      <groupId>commons-pool</groupId>
-      <artifactId>commons-pool</artifactId>
-      <version>1.6</version>
-    </dependency>
+    <dependencies>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.30</version>
-    </dependency>
+        <dependency>
+            <groupId>com.whalin</groupId>
+            <artifactId>Memcached-Java-Client</artifactId>
+            <version>3.0.2</version>
+        </dependency>
 
-    <!-- alisoft-xplatform-asf-cache-2.5.1客户端，在lib文件夹中，依赖的jar -->
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
+        <!--		<dependency>-->
+        <!--			<groupId>net.spy</groupId>-->
+        <!--			<artifactId>spymemcached</artifactId>-->
+        <!--			<version>2.12.1</version>-->
+        <!--		</dependency>-->
 
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.2</version>
-    </dependency>
+        <dependency>
+            <groupId>net.spy</groupId>
+            <artifactId>spymemcached</artifactId>
+            <version>2.12.3</version>
+        </dependency>
 
-    <!-- local jar start -->
-    <dependency>
-      <groupId>org.quickstart</groupId>
-      <artifactId>java-memcached-release</artifactId>
-      <version>2.6.6</version>
-      <!-- 设置scope和systemPath，systemPath可以是相对或者绝对路径 -->
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/java_memcached-release_2.6.6.jar</systemPath>
-      <!-- 			<systemPath>${basedir}/target/java_memcached-release_2.6.6.jar</systemPath> -->
-    </dependency>
 
-    <dependency>
-      <groupId>org.quickstart</groupId>
-      <artifactId>alisoft-xplatform-asf-cache</artifactId>
-      <version>2.5.1</version>
-      <!-- 设置scope和systemPath，systemPath可以是相对或者绝对路径 -->
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/alisoft-xplatform-asf-cache-2.5.1.jar</systemPath>
-    </dependency>
+        <dependency>
+            <groupId>com.googlecode.xmemcached</groupId>
+            <artifactId>xmemcached</artifactId>
+            <version>2.4.6</version>
+        </dependency>
 
-    <!-- local jar end -->
-  </dependencies>
+        <!-- Memcached-Java-Client-2.x版本，在lib文件夹中，依赖的jar -->
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+
+        <!-- alisoft-xplatform-asf-cache-2.5.1客户端，在lib文件夹中，依赖的jar -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- local jar start -->
+        <dependency>
+            <groupId>org.quickstart</groupId>
+            <artifactId>java-memcached-release</artifactId>
+            <version>2.6.6</version>
+            <!-- 设置scope和systemPath，systemPath可以是相对或者绝对路径 -->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/java_memcached-release_2.6.6.jar</systemPath>
+            <!-- 			<systemPath>${basedir}/target/java_memcached-release_2.6.6.jar</systemPath> -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.quickstart</groupId>
+            <artifactId>alisoft-xplatform-asf-cache</artifactId>
+            <version>2.5.1</version>
+            <!-- 设置scope和systemPath，systemPath可以是相对或者绝对路径 -->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alisoft-xplatform-asf-cache-2.5.1.jar</systemPath>
+        </dependency>
+
+        <!-- local jar end -->
+    </dependencies>
 </project>

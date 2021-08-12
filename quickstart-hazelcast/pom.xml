@@ -8,7 +8,6 @@
     <groupId>org.quickstart</groupId>
     <artifactId>quickstart-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>..</relativePath> <!-- lookup parent from repository -->
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -25,11 +24,9 @@
 
   <dependencies>
 
-<!--      <version>${hazelcast.version}</version>-->
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast</artifactId>
-      <version>4.1</version>
     </dependency>
 
     <dependency>
