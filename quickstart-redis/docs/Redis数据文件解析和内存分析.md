@@ -1,5 +1,4 @@
-
-
+# Redis数据文件解析和内存分析
 
 
 ## Redis AOF文件格式解析
@@ -21,6 +20,11 @@ Learn what are EOL (End of Line) or LF (Line Feed) or NL (New Line) ascii charac
 [Redis持久化文件RDB的格式解析](https://cloud.tencent.com/developer/article/1179710)  
 [Redis RDB 文件格式](https://github.com/wen866595/open-doc/blob/master/redis-doc/Redis-RDB-Dump-File-Format-cn.md)  
 [Redis RDB文件格式全解析](https://blog.csdn.net/moakun/article/details/105341825)  
+
+
+[RDB 文件结构说明](https://redisbook.readthedocs.io/en/latest/internal/rdb.html)  
+[Redis持久化之RDB文件格式](https://blog.csdn.net/Xiejingfa/article/details/51553370)  
+
 
 ---------------------------------------------------------------------------------------------------------------------
 

@@ -54,7 +54,7 @@ public class RedisSingleClient {
     shards.add(new JedisShardInfo("192.168.11.176", 7379));
     shards.add(new JedisShardInfo("192.168.11.177", 7379));
     shards.add(new JedisShardInfo("192.168.11.178", 7379));
-    shardedJedisPool = new ShardedJedisPool(config, shards);
+    // shardedJedisPool = new ShardedJedisPool(config, shards);
   }
 
   public Jedis getJedis() {
