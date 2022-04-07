@@ -1,0 +1,82 @@
+#docker compose -f cluster-nat.yml up -d
+#docker compose -f cluster-nat.yml down
+
+#这里yml中的master/follower没有实际意义,具体的主从分配是redis决定的.
+
+version: '3'
+
+# 定义服务，可以多个
+services:
+  node1: # 服务名称
+    image: redis  # 创建容器时所需的镜像
+    container_name: redis-cluster-node-1 # 容器名称
+    restart: always # 容器总是重新启动
+    volumes: # 数据卷，目录挂载
+      - "./node1/conf/redis.conf:/etc/redis.conf"
+      - "./node1/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+#    command:
+#      redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6371:6371
+      - 16371:16371
+
+  node2:
+    image: redis
+    container_name: redis-cluster-node-2
+    restart: always
+    volumes:
+      - "./node2/conf/redis.conf:/etc/redis.conf"
+      - "./node2/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+    ports:
+      - 6372:6372
+      - 16372:16372
+
+  node3:
+    image: redis
+    container_name: redis-cluster-node-3
+    restart: always
+    volumes:
+      - "./node3/conf/redis.conf:/etc/redis.conf"
+      - "./node3/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+    ports:
+      - 6373:6373
+      - 16373:16373
+
+  node4:
+    image: redis
+    container_name: redis-cluster-node-4
+    restart: always
+    volumes:
+      - "./node4/conf/redis.conf:/etc/redis.conf"
+      - "./node4/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+    ports:
+      - 6374:6374
+      - 16374:16374
+
+  node5:
+    image: redis
+    container_name: redis-cluster-node-5
+    restart: always
+    volumes:
+      - "./node5/conf/redis.conf:/etc/redis.conf"
+      - "./node5/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+    ports:
+      - 6375:6375
+      - 16375:16375
+
+  node6:
+    image: redis
+    container_name: redis-cluster-node-6
+    restart: always
+    volumes:
+      - "./node6/conf/redis.conf:/etc/redis.conf"
+      - "./node6/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+    ports:
+      - 6376:6376
+      - 16376:16376

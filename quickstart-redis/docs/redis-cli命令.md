@@ -14,6 +14,8 @@
 - [Redis运维常用命令](#Redis运维常用命令)
   
 - [查看redisCluster集群中所有keys值的命令](#查看redisCluster集群中所有keys值的命令)
+- [Redis查询某个key的slot](#Redis查询某个key的slot)
+- [Redis的scan命令](#Redis的scan命令)
 
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -421,5 +423,52 @@ redis-cli -c --cluster call 172.16.48.179:7000 keys "*lengfeng.test3*"
 
 
 
+
+## Redis查询某个key的slot
+
+CLUSTER KEYSLOT 'client:prism:{mass-v2:sink:hll:cu}:app-version:hhh'
+
+
+
+
+## Redis的scan命令
+
+[官网参考](https://redis.io/commands/scan)
+
+```
+redis 127.0.0.1:6379> scan 0 MATCH *11*
+1) "288"
+2) 1) "key:911"
+redis 127.0.0.1:6379> scan 288 MATCH *11*
+1) "224"
+2) (empty list or set)
+redis 127.0.0.1:6379> scan 224 MATCH *11*
+1) "80"
+2) (empty list or set)
+redis 127.0.0.1:6379> scan 80 MATCH *11*
+1) "176"
+2) (empty list or set)
+redis 127.0.0.1:6379> scan 176 MATCH *11* COUNT 1000
+1) "0"
+2)  1) "key:611"
+    2) "key:711"
+    3) "key:118"
+    4) "key:117"
+    5) "key:311"
+    6) "key:112"
+    7) "key:111"
+    8) "key:110"
+    9) "key:113"
+   10) "key:211"
+   11) "key:411"
+   12) "key:115"
+   13) "key:116"
+   14) "key:114"
+   15) "key:119"
+   16) "key:811"
+   17) "key:511"
+   18) "key:11"
+redis 127.0.0.1:6379>
+```
 
 

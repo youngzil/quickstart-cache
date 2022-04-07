@@ -2,6 +2,9 @@
 [Jodis Github](https://github.com/CodisLabs/jodis)  
 
 
+2017年之后就不再维护，目前最新的是2017年的基于Redis3.X的支持
+
+
 Jodis - Java client for codis
 
 

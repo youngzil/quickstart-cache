@@ -12,12 +12,14 @@
 
 
 Redis的主要集群方案可以分为：
+1. 客户端分片
+2. 基于代理的分片（Twemproxy, codis）
+3. 路由查询（Redis Cluster-官方实现）
 
-客户端分片
 
-基于代理的分片（Twemproxy, codis）
 
-路由查询（Redis Cluster-官方实现）
+A fast, light-weight proxy for memcached and redis
+[Twemproxy Github地址](https://github.com/twitter/twemproxy)
 
 
 
@@ -40,8 +42,12 @@ Redis的几种使用方式包括：
 ---------------------------------------------------------------------------------------------------------------------
 
 ## Redis集群规范
-http://www.redis.cn/topics/cluster-spec.html
-https://redis.io/topics/cluster-spec/
+[Redis集群规范](https://redis.io/topics/cluster-spec/)  
+[Redis集群介绍](https://redis.io/topics/cluster-tutorial)  
+
+
+[Redis集群规范中文版](http://www.redis.cn/topics/cluster-spec.html)  
+
 
 
 

@@ -1,0 +1,68 @@
+#docker compose -f cluster-host.yml up -d
+#docker compose -f cluster-host.yml down
+
+#这里yml中的master/follower没有实际意义,具体的主从分配是redis决定的.
+
+version: '3'
+
+# 定义服务，可以多个
+services:
+  node1: # 服务名称
+    image: redis # 创建容器时所需的镜像
+    container_name: redis-cluster-node-1 # 容器名称
+    network_mode: "host"
+    restart: always # 容器总是重新启动
+    volumes: # 数据卷，目录挂载
+      - "./node1/conf/redis.conf:/etc/redis.conf"
+      - "./node1/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+
+  node2:
+    image: redis
+    container_name: redis-cluster-node-2
+    network_mode: "host"
+    restart: always
+    volumes:
+      - "./node2/conf/redis.conf:/etc/redis.conf"
+      - "./node2/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+
+  node3:
+    image: redis
+    container_name: redis-cluster-node-3
+    network_mode: "host"
+    restart: always
+    volumes:
+      - "./node3/conf/redis.conf:/etc/redis.conf"
+      - "./node3/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+
+  node4:
+    image: redis
+    container_name: redis-cluster-node-4
+    network_mode: "host"
+    restart: always
+    volumes:
+      - "./node4/conf/redis.conf:/etc/redis.conf"
+      - "./node4/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+
+  node5:
+    image: redis
+    container_name: redis-cluster-node-5
+    network_mode: "host"
+    restart: always
+    volumes:
+      - "./node5/conf/redis.conf:/etc/redis.conf"
+      - "./node5/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]
+
+  node6:
+    image: redis
+    container_name: redis-cluster-node-6
+    network_mode: "host"
+    restart: always
+    volumes:
+      - "./node6/conf/redis.conf:/etc/redis.conf"
+      - "./node6/data:/data"
+    command: ["redis-server", "/etc/redis.conf"]

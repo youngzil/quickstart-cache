@@ -50,12 +50,13 @@ public class ClusterTest {
     static {
         // 只给集群里一个实例就可以
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-        jedisClusterNodes.add(new HostAndPort(host, 7000));
-        jedisClusterNodes.add(new HostAndPort(host, 7001));
-        jedisClusterNodes.add(new HostAndPort(host, 7002));
-        jedisClusterNodes.add(new HostAndPort(host, 7003));
-        jedisClusterNodes.add(new HostAndPort(host, 7004));
-        jedisClusterNodes.add(new HostAndPort(host, 7005));
+        // jedisClusterNodes.add(new HostAndPort(host, 7000));
+        // jedisClusterNodes.add(new HostAndPort(host, 7001));
+        // jedisClusterNodes.add(new HostAndPort(host, 7002));
+        // jedisClusterNodes.add(new HostAndPort(host, 7003));
+        // jedisClusterNodes.add(new HostAndPort(host, 7004));
+        // jedisClusterNodes.add(new HostAndPort(host, 7005));
+        jedisClusterNodes.add(new HostAndPort("172.16.49.101", 6381));
 
         cluster = new JedisCluster(jedisClusterNodes);
         // cluster.auth("123456");
