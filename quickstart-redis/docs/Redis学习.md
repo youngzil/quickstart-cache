@@ -1,7 +1,12 @@
+- [Redis部署](Bitmap介绍.md)
+  - [docker compose部署]()
+  - [手动部署]()
+
+
 - [批量字节操作Bitmap介绍](Bitmap介绍.md)
 - [Redis为什么默认16个数据库](Redis为什么默认16个数据库.md)
 - [Redis的最常被问到知识点总结](Redis的最常被问到知识点总结.md)
-- [Redis中删除过期Key的三种策略](Redis中删除过期Key的三种策略.md)
+- [Redis中删除过期Key的三种策略](Redis的过期策略和内存淘汰策略.md)
 - [Redis事务](Redis事务.md)
 - [Redis开发建议](Redis开发建议.md)
 - [Redis快的秘诀](Redis快的秘诀.md)

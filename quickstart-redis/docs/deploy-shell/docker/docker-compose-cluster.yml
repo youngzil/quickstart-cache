@@ -1,13 +1,13 @@
 #docker-compose -f docker-compose-cluster.yml up -d
 
-#这里yml中的master/follower没有实际意义,具体的主从分配是redis决定的.
+#这里yml中的node1~node6没有实际意义,具体的主从分配是redis决定的.
 
 version: '3'
 
 services:
-  master1:
+  node1:
     image: redis
-    container_name: redis-cluster1-master
+    container_name: redis-cluster-node1
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster1/master:/etc/redis
@@ -19,9 +19,9 @@ services:
       redisNet:
         ipv4_address: 192.168.88.80
 
-  follow1:
+  node2:
     image: redis
-    container_name: redis-cluster1-follower
+    container_name: redis-cluster-node2
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster1/follower:/etc/redis
@@ -33,9 +33,9 @@ services:
       redisNet:
         ipv4_address: 192.168.88.81
 
-  master2:
+  node3:
     image: redis
-    container_name: redis-cluster2-master
+    container_name: redis-cluster-node3
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster2/master:/etc/redis
@@ -47,9 +47,9 @@ services:
       redisNet:
         ipv4_address: 192.168.88.82
 
-  follow2:
+  node4:
     image: redis
-    container_name: redis-cluster2-follower
+    container_name: redis-cluster-node4
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster2/follower:/etc/redis
@@ -61,9 +61,9 @@ services:
       redisNet:
         ipv4_address: 192.168.88.83
 
-  master3:
+  node5:
     image: redis
-    container_name: redis-cluster3-master
+    container_name: redis-cluster-node5
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster3/master:/etc/redis
@@ -75,9 +75,9 @@ services:
       redisNet:
         ipv4_address: 192.168.88.84
 
-  follow3:
+  node6:
     image: redis
-    container_name: redis-cluster3-follower
+    container_name: redis-cluster-node6
     command: /bin/bash -c "redis-server /etc/redis/redis.conf"
     volumes:
       - /usr/local/etc/docker-compose/redis-cluster/cluster3/follower:/etc/redis

@@ -65,6 +65,10 @@ public class ClusterTest {
     @Test
     public void testSetString() {
         // cluster.set("username", "boonya");
+
+
+        // cluster.set()
+
         System.out.println("set username " + cluster.get("username"));
     }
 

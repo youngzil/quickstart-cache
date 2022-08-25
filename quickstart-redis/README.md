@@ -19,6 +19,11 @@
 [在线测试redis命令Try Redis](http://try.redis.io/)  
 
 
+Redis （Remote Dictionary Server）是一个缩写词，代表RE mote DI ctionary Server。
+
+
+
+
 Redis is an in-memory database that persists on disk. The data model is key-value, but many different kind of values are supported: Strings, Lists, Sets, Sorted Sets, Hashes, Streams, HyperLogLogs, Bitmaps.
 
 Redis是一个内存数据库，可持久存储在磁盘上。数据模型是键值，但支持许多不同类型的值：字符串，列表，集，排序集，哈希，流，HyperLogLogs，位图。

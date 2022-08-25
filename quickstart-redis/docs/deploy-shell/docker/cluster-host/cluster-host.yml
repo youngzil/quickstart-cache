@@ -9,7 +9,7 @@ version: '3'
 services:
   node1: # 服务名称
     image: redis # 创建容器时所需的镜像
-    container_name: redis-cluster-node-1 # 容器名称
+    container_name: redis-cluster-node1 # 容器名称
     network_mode: "host"
     restart: always # 容器总是重新启动
     volumes: # 数据卷，目录挂载
@@ -19,7 +19,7 @@ services:
 
   node2:
     image: redis
-    container_name: redis-cluster-node-2
+    container_name: redis-cluster-node2
     network_mode: "host"
     restart: always
     volumes:
@@ -29,7 +29,7 @@ services:
 
   node3:
     image: redis
-    container_name: redis-cluster-node-3
+    container_name: redis-cluster-node3
     network_mode: "host"
     restart: always
     volumes:
@@ -39,7 +39,7 @@ services:
 
   node4:
     image: redis
-    container_name: redis-cluster-node-4
+    container_name: redis-cluster-node4
     network_mode: "host"
     restart: always
     volumes:
@@ -49,7 +49,7 @@ services:
 
   node5:
     image: redis
-    container_name: redis-cluster-node-5
+    container_name: redis-cluster-node5
     network_mode: "host"
     restart: always
     volumes:
@@ -59,7 +59,7 @@ services:
 
   node6:
     image: redis
-    container_name: redis-cluster-node-6
+    container_name: redis-cluster-node6
     network_mode: "host"
     restart: always
     volumes:
