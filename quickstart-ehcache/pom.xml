@@ -21,7 +21,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jcache.version>1.0.0</jcache.version>
     <jcache.version>1.1.1</jcache.version>
-    <shiro.version>1.5.3</shiro.version>
+    <shiro.version>1.10.0</shiro.version>
   </properties>
 
   <dependencies>
